@@ -1,0 +1,1122 @@
+/* =====================================================
+   SHOPNEST - STYLE.CSS
+===================================================== */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    font-family: "Poppins", sans-serif;
+    background: #f4f6fb;
+    color: #0c1735;
+}
+
+
+/* =====================================================
+   PAGE
+===================================================== */
+
+.page {
+    min-height: 100vh;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 25px;
+}
+
+
+/* =====================================================
+   MAIN CONTAINER
+===================================================== */
+
+.login-container {
+    width: 100%;
+    max-width: 1100px;
+    height: 690px;
+
+    display: flex;
+
+    background: #ffffff;
+
+    border-radius: 22px;
+
+    overflow: hidden;
+
+    box-shadow:
+        0 20px 60px rgba(12, 23, 53, 0.15);
+}
+
+
+/* =====================================================
+   LEFT SECTION
+===================================================== */
+
+.left-section {
+    width: 55%;
+    height: 100%;
+
+    padding: 35px 55px;
+
+    background: #ffffff;
+
+    overflow-y: auto;
+    overflow-x: hidden;
+}
+
+
+/* Scrollbar */
+
+.left-section::-webkit-scrollbar {
+    width: 6px;
+}
+
+.left-section::-webkit-scrollbar-track {
+    background: #f4f6fb;
+}
+
+.left-section::-webkit-scrollbar-thumb {
+    background: #1555d9;
+    border-radius: 10px;
+}
+
+
+/* =====================================================
+   LOGO
+===================================================== */
+
+.logo-box {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+
+    margin-bottom: 35px;
+}
+
+.logo-icon {
+    width: 48px;
+    height: 48px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    background: #eaf0ff;
+
+    border-radius: 14px;
+
+    font-size: 25px;
+}
+
+.logo-text h1 {
+    font-size: 24px;
+    font-weight: 700;
+
+    color: #1555d9;
+}
+
+.logo-text p {
+    font-size: 11px;
+    color: #777;
+    margin-top: -2px;
+}
+
+
+/* =====================================================
+   FORM BOX
+===================================================== */
+
+.form-box {
+    width: 100%;
+}
+
+.form-box h2 {
+    font-size: 28px;
+    font-weight: 700;
+
+    color: #0c1735;
+
+    margin-bottom: 6px;
+}
+
+.subtitle {
+    font-size: 13px;
+    color: #777;
+
+    margin-bottom: 25px;
+}
+
+
+/* =====================================================
+   INPUT GROUP
+===================================================== */
+
+.input-group {
+    width: 100%;
+    margin-bottom: 17px;
+}
+
+.input-group label {
+    display: block;
+
+    font-size: 13px;
+    font-weight: 600;
+
+    color: #101a35;
+
+    margin-bottom: 7px;
+}
+
+
+.input-group input,
+.input-group select,
+.input-group textarea {
+    width: 100%;
+
+    border: 1px solid #dfe4ef;
+
+    background: #ffffff;
+
+    color: #0c1735;
+
+    font-family: "Poppins", sans-serif;
+
+    font-size: 13px;
+
+    border-radius: 10px;
+
+    outline: none;
+
+    transition: 0.25s;
+}
+
+
+.input-group input,
+.input-group select {
+    height: 47px;
+
+    padding: 0 14px;
+}
+
+
+.input-group textarea {
+    padding: 12px 14px;
+
+    min-height: 90px;
+
+    resize: vertical;
+}
+
+
+.input-group input:focus,
+.input-group select:focus,
+.input-group textarea:focus {
+    border-color: #1555d9;
+
+    box-shadow:
+        0 0 0 3px rgba(21, 85, 217, 0.08);
+}
+
+
+/* Placeholder */
+
+.input-group input::placeholder,
+.input-group textarea::placeholder {
+    color: #a4a8b2;
+}
+
+
+/* Small text */
+
+.input-group small {
+    display: block;
+
+    margin-top: 5px;
+
+    color: #8b8f99;
+
+    font-size: 10px;
+}
+
+
+/* =====================================================
+   MAIN BUTTON
+===================================================== */
+
+.main-btn {
+    width: 100%;
+
+    height: 48px;
+
+    border: none;
+
+    border-radius: 10px;
+
+    background: #1455df;
+
+    color: #ffffff;
+
+    font-family: "Poppins", sans-serif;
+
+    font-size: 14px;
+
+    font-weight: 600;
+
+    cursor: pointer;
+
+    transition: 0.25s;
+
+    margin-top: 5px;
+}
+
+
+.main-btn:hover {
+    background: #0f43b8;
+
+    transform: translateY(-1px);
+
+    box-shadow:
+        0 8px 20px rgba(20, 85, 223, 0.22);
+}
+
+
+.main-btn:active {
+    transform: translateY(0);
+}
+
+
+/* =====================================================
+   FORGOT PASSWORD
+===================================================== */
+
+.forgot-row {
+    display: flex;
+    justify-content: flex-end;
+
+    margin-top: -7px;
+    margin-bottom: 18px;
+}
+
+
+.forgot-row a {
+    color: #1555d9;
+
+    font-size: 11px;
+
+    font-weight: 500;
+
+    text-decoration: none;
+}
+
+
+.forgot-row a:hover {
+    text-decoration: underline;
+}
+
+
+/* =====================================================
+   DIVIDER
+===================================================== */
+
+.divider {
+    width: 100%;
+
+    display: flex;
+    align-items: center;
+
+    gap: 12px;
+
+    margin: 22px 0;
+}
+
+
+.divider::before,
+.divider::after {
+    content: "";
+
+    height: 1px;
+
+    flex: 1;
+
+    background: #e4e7ee;
+}
+
+
+.divider span {
+    font-size: 10px;
+
+    color: #999;
+}
+
+
+/* =====================================================
+   SOCIAL BUTTONS
+===================================================== */
+
+.social-btn {
+    width: 100%;
+
+    height: 45px;
+
+    border-radius: 10px;
+
+    background: #ffffff;
+
+    border: 1px solid #dfe4ef;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    gap: 10px;
+
+    font-family: "Poppins", sans-serif;
+
+    font-size: 12px;
+
+    font-weight: 500;
+
+    cursor: pointer;
+
+    transition: 0.2s;
+
+    margin-bottom: 10px;
+}
+
+
+.social-btn:hover {
+    background: #f8faff;
+
+    border-color: #c9d4ed;
+}
+
+
+.google-btn span {
+    font-size: 17px;
+    font-weight: 700;
+}
+
+
+.facebook-btn span {
+    font-size: 18px;
+    font-weight: 700;
+
+    color: #1555d9;
+}
+
+
+/* =====================================================
+   BOTTOM TEXT
+===================================================== */
+
+.bottom-text {
+    text-align: center;
+
+    font-size: 12px;
+
+    color: #777;
+
+    margin-top: 22px;
+}
+
+
+.bottom-text a {
+    color: #1555d9;
+
+    font-weight: 600;
+
+    text-decoration: none;
+}
+
+
+.bottom-text a:hover {
+    text-decoration: underline;
+}
+
+
+/* =====================================================
+   ACCOUNT TYPE
+===================================================== */
+
+.account-type {
+    width: 100%;
+
+    display: flex;
+
+    gap: 10px;
+
+    padding: 5px;
+
+    background: #f4f6fb;
+
+    border-radius: 12px;
+
+    margin-bottom: 25px;
+}
+
+
+.type-btn {
+    flex: 1;
+
+    height: 43px;
+
+    border: none;
+
+    border-radius: 9px;
+
+    background: transparent;
+
+    color: #6d7280;
+
+    font-family: "Poppins", sans-serif;
+
+    font-size: 12px;
+
+    font-weight: 600;
+
+    cursor: pointer;
+
+    transition: 0.25s;
+}
+
+
+.type-btn.active {
+    background: #ffffff;
+
+    color: #1555d9;
+
+    box-shadow:
+        0 3px 12px rgba(12, 23, 53, 0.08);
+}
+
+
+.type-btn:hover {
+    color: #1555d9;
+}
+
+
+/* =====================================================
+   STEP TITLE
+===================================================== */
+
+.step-title {
+    display: flex;
+
+    align-items: center;
+
+    gap: 9px;
+
+    font-size: 14px;
+
+    font-weight: 600;
+
+    color: #0c1735;
+
+    margin-bottom: 17px;
+}
+
+
+.step-title span {
+    width: 28px;
+    height: 28px;
+
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    background: #eaf0ff;
+
+    color: #1555d9;
+
+    border-radius: 50%;
+
+    font-size: 12px;
+
+    font-weight: 700;
+}
+
+
+/* =====================================================
+   OTP MESSAGE
+===================================================== */
+
+.otp-message {
+    width: 100%;
+
+    background: #fff5e6;
+
+    color: #c76b00;
+
+    border: 1px solid #ffd99e;
+
+    border-radius: 8px;
+
+    padding: 8px 10px;
+
+    font-size: 11px;
+
+    margin-bottom: 12px;
+
+    text-align: center;
+}
+
+
+/* =====================================================
+   TEXT BUTTON
+===================================================== */
+
+.text-btn {
+    width: 100%;
+
+    border: none;
+
+    background: transparent;
+
+    color: #1555d9;
+
+    font-family: "Poppins", sans-serif;
+
+    font-size: 11px;
+
+    font-weight: 600;
+
+    cursor: pointer;
+
+    padding: 10px;
+
+    margin-top: 4px;
+}
+
+
+.text-btn:hover {
+    text-decoration: underline;
+}
+
+
+/* =====================================================
+   LOCATION BUTTON
+===================================================== */
+
+.location-btn {
+    width: 100%;
+
+    height: 43px;
+
+    border-radius: 9px;
+
+    border: 1px solid #d8e1f5;
+
+    background: #f5f8ff;
+
+    color: #1555d9;
+
+    font-family: "Poppins", sans-serif;
+
+    font-size: 11px;
+
+    font-weight: 600;
+
+    cursor: pointer;
+
+    margin-bottom: 12px;
+
+    transition: 0.2s;
+}
+
+
+.location-btn:hover {
+    background: #eaf0ff;
+
+    border-color: #b9c9ed;
+}
+
+
+/* =====================================================
+   SHOP IMAGE UPLOAD
+===================================================== */
+
+.shop-image-upload {
+    width: 100%;
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 15px;
+
+    padding: 13px;
+
+    border: 1px dashed #cbd5eb;
+
+    background: #f8faff;
+
+    border-radius: 12px;
+}
+
+
+.shop-image-preview {
+    width: 75px;
+    height: 75px;
+
+    flex-shrink: 0;
+
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    background: #eaf0ff;
+
+    border-radius: 12px;
+
+    overflow: hidden;
+
+    font-size: 28px;
+
+    color: #1555d9;
+}
+
+
+.shop-image-preview img {
+    width: 100%;
+    height: 100%;
+
+    object-fit: cover;
+}
+
+
+.upload-content {
+    display: flex;
+
+    flex-direction: column;
+
+    align-items: flex-start;
+
+    gap: 5px;
+}
+
+
+.upload-btn {
+    display: inline-flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    min-height: 38px;
+
+    padding: 0 14px;
+
+    border-radius: 8px;
+
+    background: #1555d9;
+
+    color: #ffffff !important;
+
+    font-family: "Poppins", sans-serif;
+
+    font-size: 11px !important;
+
+    font-weight: 600 !important;
+
+    cursor: pointer;
+
+    margin: 0 !important;
+
+    transition: 0.2s;
+}
+
+
+.upload-btn:hover {
+    background: #0f43b8;
+}
+
+
+.upload-content small {
+    color: #8b8f99;
+
+    font-size: 9px;
+}
+
+
+/* =====================================================
+   HOME BOX
+===================================================== */
+
+.home-box {
+    text-align: center;
+
+    padding: 40px 20px;
+}
+
+
+.home-icon {
+    width: 80px;
+    height: 80px;
+
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    margin: 0 auto 20px;
+
+    border-radius: 50%;
+
+    background: #eaf0ff;
+
+    font-size: 38px;
+}
+
+
+.home-box h2 {
+    font-size: 24px;
+
+    margin-bottom: 8px;
+}
+
+
+.home-box p {
+    color: #777;
+
+    font-size: 13px;
+
+    margin-bottom: 25px;
+}
+
+
+/* =====================================================
+   PROFILE BOX
+===================================================== */
+
+.profile-box {
+    padding: 20px 0;
+}
+
+
+.profile-header {
+    display: flex;
+
+    align-items: center;
+
+    gap: 15px;
+
+    margin-bottom: 25px;
+}
+
+
+.profile-picture {
+    width: 65px;
+    height: 65px;
+
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    background: #eaf0ff;
+
+    border-radius: 50%;
+
+    font-size: 28px;
+}
+
+
+.profile-header h2 {
+    font-size: 19px;
+
+    margin-bottom: 2px;
+}
+
+
+.profile-header p {
+    font-size: 12px;
+
+    color: #777;
+}
+
+
+.profile-stats {
+    display: flex;
+
+    justify-content: space-around;
+
+    padding: 18px 0;
+
+    border-top: 1px solid #edf0f5;
+
+    border-bottom: 1px solid #edf0f5;
+
+    margin-bottom: 20px;
+}
+
+
+.profile-stats div {
+    display: flex;
+
+    flex-direction: column;
+
+    align-items: center;
+
+    gap: 3px;
+}
+
+
+.profile-stats strong {
+    font-size: 17px;
+
+    color: #0c1735;
+}
+
+
+.profile-stats span {
+    font-size: 10px;
+
+    color: #888;
+}
+
+
+/* =====================================================
+   HIDDEN
+===================================================== */
+
+.hidden {
+    display: none !important;
+}
+
+
+/* =====================================================
+   RIGHT SECTION
+===================================================== */
+
+
+
+
+/* =====================================================
+   RIGHT SECTION - ONLY IMAGE
+===================================================== */
+
+.right-section {
+    width: 45%;
+    height: 100%;
+
+    overflow: hidden;
+
+    background: #ffffff;
+}
+
+.right-image {
+    width: 100%;
+    height: 100%;
+
+    display: block;
+
+    object-fit: cover;
+    object-position: center;
+}
+
+.right-content h1 {
+    font-size: 39px;
+
+    font-weight: 700;
+
+    margin-bottom: 5px;
+}
+
+
+.right-content h3 {
+    font-size: 15px;
+
+    font-weight: 500;
+
+    color: #ffb32c;
+
+    margin-bottom: 18px;
+}
+
+
+.right-content p {
+    font-size: 12px;
+
+    line-height: 1.8;
+
+    color: rgba(255, 255, 255, 0.9);
+}
+
+
+/* =====================================================
+   RESPONSIVE - TABLET
+===================================================== */
+
+@media (max-width: 900px) {
+
+    .page {
+        padding: 15px;
+    }
+
+
+    .login-container {
+        max-width: 750px;
+        height: 650px;
+    }
+
+
+    .left-section {
+        width: 60%;
+
+        padding: 30px 35px;
+    }
+
+
+    .right-section {
+        width: 40%;
+    }
+
+
+    .right-content h1 {
+        font-size: 31px;
+    }
+
+
+    .right-content h3 {
+        font-size: 13px;
+    }
+
+
+    .right-content p {
+        font-size: 11px;
+    }
+
+}
+
+
+/* =====================================================
+   RESPONSIVE - MOBILE
+===================================================== */
+
+@media (max-width: 700px) {
+
+    .page {
+        padding: 0;
+
+        align-items: flex-start;
+    }
+
+
+    .login-container {
+        width: 100%;
+
+        min-height: 100vh;
+
+        height: auto;
+
+        border-radius: 0;
+
+        display: block;
+
+        box-shadow: none;
+    }
+
+
+    .left-section {
+        width: 100%;
+
+        min-height: 100vh;
+
+        padding: 25px 22px;
+    }
+
+
+    .right-section {
+        display: none;
+    }
+
+
+    .logo-box {
+        margin-bottom: 25px;
+    }
+
+
+    .logo-text h1 {
+        font-size: 22px;
+    }
+
+
+    .form-box h2 {
+        font-size: 24px;
+    }
+
+
+    .account-type {
+        margin-bottom: 20px;
+    }
+
+}
+
+
+/* =====================================================
+   SMALL MOBILE
+===================================================== */
+
+@media (max-width: 400px) {
+
+    .left-section {
+        padding: 20px 16px;
+    }
+
+
+    .logo-box {
+        margin-bottom: 22px;
+    }
+
+
+    .logo-icon {
+        width: 43px;
+        height: 43px;
+
+        font-size: 22px;
+    }
+
+
+    .logo-text h1 {
+        font-size: 20px;
+    }
+
+
+    .form-box h2 {
+        font-size: 22px;
+    }
+
+
+    .input-group input,
+    .input-group select {
+        height: 45px;
+    }
+
+
+    .main-btn {
+        height: 46px;
+    }
+
+
+    .shop-image-upload {
+        padding: 10px;
+    }
+
+
+    .shop-image-preview {
+        width: 65px;
+        height: 65px;
+    }
+
+}

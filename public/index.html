@@ -1,0 +1,800 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>ShopNest</title>
+
+    <!-- Google Font -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    <link
+        href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap"
+        rel="stylesheet"
+    >
+
+    <!-- CSS -->
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+<div class="page">
+
+    <div class="login-container">
+
+        <!-- ================= LEFT SECTION ================= -->
+
+        <div class="left-section">
+
+            <!-- LOGO -->
+
+            <div class="logo-box">
+
+                <div class="logo-icon">
+                    🛍️
+                </div>
+
+                <div class="logo-text">
+                    <h1>ShopNest</h1>
+                    <p>Everything Around You</p>
+                </div>
+
+            </div>
+
+
+            <!-- ================= LOGIN ================= -->
+
+            <div id="loginBox" class="form-box">
+
+                <h2>Welcome Back 👋</h2>
+
+                <p class="subtitle">
+                    Login to continue to ShopNest
+                </p>
+
+
+                <form id="loginForm">
+
+                    <div class="input-group">
+
+                        <label>
+                            Username / Mobile Number
+                        </label>
+
+                        <input
+                            type="text"
+                            id="loginUsername"
+                            placeholder="Enter username or mobile number"
+                            required
+                        >
+
+                    </div>
+
+
+                    <div class="input-group">
+
+                        <label>
+                            Password
+                        </label>
+
+                        <input
+                            type="password"
+                            id="loginPassword"
+                            placeholder="Enter password"
+                            required
+                        >
+
+                    </div>
+
+
+                    <div class="forgot-row">
+
+                        <a href="#" id="forgotPassword">
+                            Forgot Password?
+                        </a>
+
+                    </div>
+
+
+                    <button
+                        type="submit"
+                        class="main-btn"
+                    >
+                        Login
+                    </button>
+
+                </form>
+
+
+                <div class="divider">
+                    <span>OR</span>
+                </div>
+
+
+                <button
+                    type="button"
+                    class="social-btn google-btn"
+                >
+                    <span>G</span>
+                    Continue with Google
+                </button>
+
+
+                <button
+                    type="button"
+                    class="social-btn facebook-btn"
+                >
+                    <span>f</span>
+                    Continue with Facebook
+                </button>
+
+
+                <p class="bottom-text">
+
+                    Don't have an account?
+
+                    <a href="#" id="showSignup">
+                        Create Account
+                    </a>
+
+                </p>
+
+            </div>
+
+
+
+            <!-- ================= SIGNUP ================= -->
+
+            <div
+                id="signupBox"
+                class="form-box hidden"
+            >
+
+                <h2>Create Account 🚀</h2>
+
+                <p class="subtitle">
+                    Join ShopNest today
+                </p>
+
+
+                <!-- ACCOUNT TYPE -->
+
+                <div class="account-type">
+
+                    <button
+                        type="button"
+                        id="userTypeBtn"
+                        class="type-btn active"
+                    >
+                        👤 User
+                    </button>
+
+
+                    <button
+                        type="button"
+                        id="shopkeeperTypeBtn"
+                        class="type-btn"
+                    >
+                        🏪 Shopkeeper
+                    </button>
+
+                </div>
+
+
+
+                <!-- ================================================= -->
+                <!-- USER SIGNUP -->
+                <!-- ================================================= -->
+
+                <div id="userSignup">
+
+                    <form id="userSignupForm">
+
+
+                        <!-- STEP 1 -->
+
+                        <div id="userStep1">
+
+                            <div class="step-title">
+                                <span>1</span>
+                                Mobile Number
+                            </div>
+
+
+                            <div class="input-group">
+
+                                <label>
+                                    Mobile Number
+                                </label>
+
+                                <input
+                                    type="tel"
+                                    id="userPhone"
+                                    placeholder="Enter 10 digit mobile number"
+                                    maxlength="10"
+                                    required
+                                >
+
+                            </div>
+
+
+                            <button
+                                type="button"
+                                id="sendOtpBtn"
+                                class="main-btn"
+                            >
+                                Send OTP
+                            </button>
+
+                        </div>
+
+
+
+                        <!-- STEP 2 -->
+
+                        <div
+                            id="userStep2"
+                            class="hidden"
+                        >
+
+                            <div class="step-title">
+                                <span>2</span>
+                                Verify OTP
+                            </div>
+
+
+                            <div class="input-group">
+
+                                <label>
+                                    Enter OTP
+                                </label>
+
+                                <input
+                                    type="text"
+                                    id="userOtp"
+                                    placeholder="Enter 6 digit OTP"
+                                    maxlength="6"
+                                >
+
+                            </div>
+
+
+                            <p
+                                id="otpMessage"
+                                class="otp-message"
+                            ></p>
+
+
+                            <button
+                                type="button"
+                                id="verifyOtpBtn"
+                                class="main-btn"
+                            >
+                                Verify OTP
+                            </button>
+
+
+                            <button
+                                type="button"
+                                id="resendOtpBtn"
+                                class="text-btn"
+                            >
+                                Resend OTP
+                            </button>
+
+                        </div>
+
+
+
+                        <!-- STEP 3 -->
+
+                        <div
+                            id="userStep3"
+                            class="hidden"
+                        >
+
+                            <div class="step-title">
+                                <span>3</span>
+                                Your Location
+                            </div>
+
+
+                            <div class="input-group">
+
+                                <label>
+                                    Location
+                                </label>
+
+                                <input
+                                    type="text"
+                                    id="userLocation"
+                                    placeholder="Enter your city / area"
+                                    required
+                                >
+
+                            </div>
+
+
+                            <button
+                                type="button"
+                                id="getLocationBtn"
+                                class="location-btn"
+                            >
+                                📍 Use My Current Location
+                            </button>
+
+
+                            <button
+                                type="button"
+                                id="locationNextBtn"
+                                class="main-btn"
+                            >
+                                Continue
+                            </button>
+
+                        </div>
+
+
+
+                        <!-- STEP 4 -->
+
+                        <div
+                            id="userStep4"
+                            class="hidden"
+                        >
+
+                            <div class="step-title">
+                                <span>4</span>
+                                Select Language
+                            </div>
+
+
+                            <div class="input-group">
+
+                                <label>
+                                    Preferred Language
+                                </label>
+
+
+                                <select
+                                    id="userLanguage"
+                                    required
+                                >
+
+                                    <option value="">
+                                        Select Language
+                                    </option>
+
+                                    <option value="English">
+                                        English
+                                    </option>
+
+                                    <option value="Hindi">
+                                        हिंदी
+                                    </option>
+
+                                    <option value="Hinglish">
+                                        Hinglish
+                                    </option>
+
+                                </select>
+
+                            </div>
+
+
+                            <button
+                                type="submit"
+                                class="main-btn"
+                            >
+                                Create Account & Continue
+                            </button>
+
+                        </div>
+
+                    </form>
+
+                </div>
+
+
+
+                <!-- ================================================= -->
+                <!-- SHOPKEEPER SIGNUP -->
+                <!-- ================================================= -->
+
+                <div
+                    id="shopkeeperSignup"
+                    class="hidden"
+                >
+
+                    <form id="shopkeeperSignupForm">
+
+
+                        <!-- 1. OWNER NAME -->
+
+                        <div class="input-group">
+
+                            <label>
+                                Owner Name
+                            </label>
+
+                            <input
+                                type="text"
+                                id="ownerName"
+                                placeholder="Enter owner name"
+                                required
+                            >
+
+                        </div>
+
+
+
+                        <!-- 2. SHOP NAME -->
+
+                        <div class="input-group">
+
+                            <label>
+                                Shop Name
+                            </label>
+
+                            <input
+                                type="text"
+                                id="shopName"
+                                placeholder="Enter shop name"
+                                required
+                            >
+
+                        </div>
+
+
+
+                        <!-- 3. USERNAME -->
+
+                        <div class="input-group">
+
+                            <label>
+                                Username
+                            </label>
+
+                            <input
+                                type="text"
+                                id="shopUsername"
+                                placeholder="Create shop username"
+                                required
+                            >
+
+                            <small>
+                                This username will be used to login from any device.
+                            </small>
+
+                        </div>
+
+
+
+                        <!-- 4. PASSWORD -->
+
+                        <div class="input-group">
+
+                            <label>
+                                Password
+                            </label>
+
+                            <input
+                                type="password"
+                                id="shopPassword"
+                                placeholder="Create password"
+                                required
+                            >
+
+                        </div>
+
+
+
+                        <!-- 5. CONFIRM PASSWORD -->
+
+                        <div class="input-group">
+
+                            <label>
+                                Confirm Password
+                            </label>
+
+                            <input
+                                type="password"
+                                id="shopConfirmPassword"
+                                placeholder="Confirm password"
+                                required
+                            >
+
+                        </div>
+
+
+
+                        <!-- 6. SHOP PICTURE -->
+
+                        <div class="input-group">
+
+                            <label>
+                                Shop Picture
+                            </label>
+
+
+                            <div class="shop-image-upload">
+
+                                <div
+                                    id="shopImagePreview"
+                                    class="shop-image-preview"
+                                >
+                                    🏪
+                                </div>
+
+
+                                <div class="upload-content">
+
+                                    <label
+                                        for="shopPicture"
+                                        class="upload-btn"
+                                    >
+                                        📷 Add Shop Picture
+                                    </label>
+
+
+                                    <input
+                                        type="file"
+                                        id="shopPicture"
+                                        accept="image/*"
+                                        hidden
+                                    >
+
+
+                                    <small>
+                                        JPG, PNG or WEBP
+                                    </small>
+
+                                </div>
+
+                            </div>
+
+                        </div>
+
+
+
+                        <!-- 7. CATEGORY -->
+
+                        <div class="input-group">
+
+                            <label>
+                                Shop Category
+                            </label>
+
+
+                            <select
+                                id="shopCategory"
+                                required
+                            >
+
+                                <option value="">
+                                    Select Category
+                                </option>
+
+                                <option value="Clothing">
+                                    Clothing
+                                </option>
+
+                                <option value="Electronics">
+                                    Electronics
+                                </option>
+
+                                <option value="Grocery">
+                                    Grocery
+                                </option>
+
+                                <option value="Footwear">
+                                    Footwear
+                                </option>
+
+                                <option value="Beauty">
+                                    Beauty
+                                </option>
+
+                                <option value="Stationery">
+                                    Stationery
+                                </option>
+
+                                <option value="Food">
+                                    Food
+                                </option>
+
+                                <option value="Jewellery">
+                                    Jewellery
+                                </option>
+
+                                <option value="Pharmacy">
+                                    Pharmacy
+                                </option>
+
+                                <option value="Furniture">
+                                    Furniture
+                                </option>
+
+                                <option value="Other">
+                                    Other
+                                </option>
+
+                            </select>
+
+                        </div>
+
+
+
+                        <!-- 8. LOCATION -->
+
+                        <div class="input-group">
+
+                            <label>
+                                Shop Location / Address
+                            </label>
+
+
+                            <textarea
+                                id="shopAddress"
+                                placeholder="Enter complete shop address"
+                                rows="3"
+                                required
+                            ></textarea>
+
+                        </div>
+
+
+                        <button
+                            type="button"
+                            id="shopLocationBtn"
+                            class="location-btn"
+                        >
+                            📍 Use Current Location
+                        </button>
+
+
+
+                        <!-- 9. HOME PAGE -->
+
+                        <button
+                            type="submit"
+                            class="main-btn"
+                        >
+                            Create Shop Account →
+                        </button>
+
+                    </form>
+
+                </div>
+
+
+
+                <!-- BACK TO LOGIN -->
+
+                <p class="bottom-text">
+
+                    Already have an account?
+
+                    <a
+                        href="#"
+                        id="showLogin"
+                    >
+                        Login
+                    </a>
+
+                </p>
+
+            </div>
+
+
+
+            <!-- ================= HOME BOX ================= -->
+
+            <div
+                id="homeBox"
+                class="home-box hidden"
+            >
+
+                <div class="home-icon">
+                    🏠
+                </div>
+
+                <h2>
+                    Welcome to ShopNest 🎉
+                </h2>
+
+                <p>
+                    Your account has been created successfully.
+                </p>
+
+
+                <button
+                    class="main-btn"
+                    id="goHomeBtn"
+                >
+                    Go to Home →
+                </button>
+
+            </div>
+
+
+
+            <!-- ================= PROFILE ================= -->
+
+            <div
+                id="profileBox"
+                class="profile-box hidden"
+            >
+
+                <div class="profile-header">
+
+                    <div class="profile-picture">
+                        👤
+                    </div>
+
+                    <div>
+
+                        <h2 id="profileName">
+                            User
+                        </h2>
+
+                        <p id="profileUsername">
+                            @username
+                        </p>
+
+                    </div>
+
+                </div>
+
+
+                <div class="profile-stats">
+
+                    <div>
+                        <strong>0</strong>
+                        <span>Posts</span>
+                    </div>
+
+                    <div>
+                        <strong>0</strong>
+                        <span>Followers</span>
+                    </div>
+
+                    <div>
+                        <strong>0</strong>
+                        <span>Following</span>
+                    </div>
+
+                </div>
+
+
+                <button
+                    class="main-btn"
+                    id="profileHomeBtn"
+                >
+                    Continue to Home →
+                </button>
+
+            </div>
+
+        </div>
+<!-- ================= RIGHT SECTION ================= -->
+
+<div class="right-section">
+    <img src="./shopn2.png" alt="ShopNest" class="right-image">
+</div>
+
+
+        
+
+<!-- IMPORTANT:
+     JavaScript alag file se load ho raha hai
+-->
+
+<script src="script.js"></script>
+
+</body>
+</html>

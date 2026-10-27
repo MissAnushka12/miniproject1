@@ -1,0 +1,1592 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>ShopNest - Home</title>
+
+
+    <!-- HOME CSS -->
+
+    <link
+        rel="stylesheet"
+        href="home.css"
+    >
+
+
+    <!-- FONT AWESOME -->
+
+    <link
+        rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
+    >
+
+</head>
+
+
+<body>
+
+
+<!-- =========================================================
+     HEADER
+========================================================= -->
+
+<header class="top-header">
+
+
+    <!-- LOGO -->
+
+    <div class="brand">
+
+        <img
+            src="images/shopnest-logo.jpeg"
+            alt="ShopNest Logo"
+            class="shopnest-logo"
+        >
+
+    </div>
+
+
+
+    <!-- SEARCH -->
+
+    <div class="search-box">
+
+        <i
+            class="fa-solid fa-magnifying-glass search-icon"
+        ></i>
+
+
+        <input
+            id="searchInput"
+            type="text"
+            placeholder="Search for products, brands and more..."
+        >
+
+
+        <button
+            type="button"
+            id="cameraBtn"
+        >
+
+            <i class="fa-solid fa-camera"></i>
+
+        </button>
+
+
+        <button
+            type="button"
+            id="microphoneBtn"
+        >
+
+            <i class="fa-solid fa-microphone"></i>
+
+        </button>
+
+
+        <button
+            type="button"
+            class="search-btn"
+            id="searchBtn"
+        >
+
+            <i class="fa-solid fa-magnifying-glass"></i>
+
+        </button>
+
+    </div>
+
+
+
+    <!-- TOP ACTIONS -->
+
+    <div class="top-actions">
+
+
+        <!-- NOTIFICATION -->
+
+        <button
+            class="top-action"
+            id="notificationBtn"
+            type="button"
+        >
+
+            <span class="badge">0</span>
+
+            <i class="fa-regular fa-bell"></i>
+
+            <small>
+                Notification
+            </small>
+
+        </button>
+
+
+
+        <!-- WISHLIST -->
+
+        <button
+            class="top-action"
+            id="wishlistBtn"
+            type="button"
+        >
+
+            <span class="badge">0</span>
+
+            <i class="fa-regular fa-heart"></i>
+
+            <small>
+                Wishlist
+            </small>
+
+        </button>
+
+
+
+        <!-- CART -->
+
+        <button
+            class="top-action"
+            id="cartBtn"
+            type="button"
+        >
+
+            <span class="badge">0</span>
+
+            <i class="fa-solid fa-cart-shopping"></i>
+
+            <small>
+                Cart
+            </small>
+
+        </button>
+
+
+
+        <!-- =================================================
+             PROFILE
+        ================================================= -->
+
+        <div
+            class="profile-wrapper"
+            id="profileWrapper"
+        >
+
+
+            <button
+                class="profile-top"
+                id="profileButton"
+                type="button"
+            >
+
+
+                <div
+                    class="profile-avatar"
+                    id="headerProfileAvatar"
+                >
+
+                    <i class="fa-regular fa-user"></i>
+
+                </div>
+
+
+                <span id="headerProfileName">
+                    Profile
+                </span>
+
+
+                <i
+                    class="fa-solid fa-chevron-down"
+                ></i>
+
+
+            </button>
+
+
+
+            <!-- PROFILE DROPDOWN -->
+
+            <div
+                class="profile-dropdown"
+                id="profileDropdown"
+            >
+
+
+                <!-- USER -->
+
+                <div class="dropdown-user">
+
+
+                    <div
+                        class="dropdown-avatar"
+                        id="dropdownAvatar"
+                    >
+
+                        <i class="fa-regular fa-user"></i>
+
+                    </div>
+
+
+                    <div>
+
+                        <strong id="dropdownOwnerName">
+                            User
+                        </strong>
+
+
+                        <small id="dropdownUsername">
+                            @username
+                        </small>
+
+                    </div>
+
+                </div>
+
+
+
+                <div class="dropdown-line"></div>
+
+
+
+                <!-- MY PROFILE -->
+
+                <button
+                    class="dropdown-item"
+                    id="myProfileBtn"
+                    type="button"
+                >
+
+                    <i class="fa-regular fa-user"></i>
+
+                    My Profile
+
+                </button>
+
+
+
+                <!-- SHOP PROFILE -->
+
+                <button
+                    class="dropdown-item"
+                    id="shopProfileBtn"
+                    type="button"
+                >
+
+                    <i class="fa-solid fa-store"></i>
+
+                    Shop Profile
+
+                </button>
+
+
+
+                <div class="dropdown-line"></div>
+
+
+
+                <!-- LOGOUT -->
+
+                <button
+                    class="dropdown-item logout-item"
+                    id="logoutBtn"
+                    type="button"
+                >
+
+                    <i
+                        class="fa-solid fa-right-from-bracket"
+                    ></i>
+
+                    Logout
+
+                </button>
+
+
+            </div>
+
+        </div>
+
+    </div>
+
+</header>
+
+
+
+<!-- =========================================================
+     PAGE LAYOUT
+========================================================= -->
+
+<div class="page-layout">
+
+
+
+    <!-- =====================================================
+         LEFT SIDEBAR
+    ====================================================== -->
+
+    <aside class="left-sidebar">
+
+
+        <nav>
+
+
+            <!-- HOME -->
+
+            <button
+                class="side-link active"
+                type="button"
+            >
+
+                <span>
+
+                    <i
+                        class="fa-solid fa-house"
+                    ></i>
+
+                </span>
+
+                Home
+
+            </button>
+
+
+
+            <!-- ALL CATEGORIES -->
+
+            <button
+                class="side-link"
+                type="button"
+            >
+
+                <span>
+
+                    <i
+                        class="fa-solid fa-table-cells-large"
+                    ></i>
+
+                </span>
+
+                All Categories
+
+                <b>›</b>
+
+            </button>
+
+
+
+            <!-- BEST SELLERS -->
+
+            <button
+                class="side-link"
+                type="button"
+            >
+
+                <span>
+
+                    <i
+                        class="fa-solid fa-crown"
+                    ></i>
+
+                </span>
+
+                Best Sellers
+
+                <b>›</b>
+
+            </button>
+
+
+
+            <!-- TRENDING -->
+
+            <button
+                class="side-link"
+                type="button"
+            >
+
+                <span>
+
+                    <i
+                        class="fa-solid fa-fire"
+                    ></i>
+
+                </span>
+
+                Trending Products
+
+                <b>›</b>
+
+            </button>
+
+
+
+            <!-- OFFERS -->
+
+            <button
+                class="side-link"
+                type="button"
+            >
+
+                <span>
+
+                    <i
+                        class="fa-solid fa-tag"
+                    ></i>
+
+                </span>
+
+                Offers & Deals
+
+                <b>›</b>
+
+            </button>
+
+
+
+            <!-- GROCERIES -->
+
+            <button
+                class="side-link"
+                type="button"
+            >
+
+                <span>
+
+                    <i
+                        class="fa-solid fa-basket-shopping"
+                    ></i>
+
+                </span>
+
+                Groceries
+
+                <b>›</b>
+
+            </button>
+
+
+
+            <!-- CLOTHES -->
+
+            <button
+                class="side-link"
+                type="button"
+            >
+
+                <span>
+
+                    <i
+                        class="fa-solid fa-shirt"
+                    ></i>
+
+                </span>
+
+                Clothes
+
+                <b>›</b>
+
+            </button>
+
+
+
+            <!-- ELECTRONICS -->
+
+            <button
+                class="side-link"
+                type="button"
+            >
+
+                <span>
+
+                    <i
+                        class="fa-solid fa-laptop"
+                    ></i>
+
+                </span>
+
+                Electronics
+
+                <b>›</b>
+
+            </button>
+
+
+
+            <!-- BEAUTY -->
+
+            <button
+                class="side-link"
+                type="button"
+            >
+
+                <span>
+
+                    <i
+                        class="fa-solid fa-heart-pulse"
+                    ></i>
+
+                </span>
+
+                Beauty & Health
+
+                <b>›</b>
+
+            </button>
+
+
+
+            <!-- TOYS -->
+
+            <button
+                class="side-link"
+                type="button"
+            >
+
+                <span>
+
+                    <i
+                        class="fa-solid fa-gamepad"
+                    ></i>
+
+                </span>
+
+                Toys & Games
+
+                <b>›</b>
+
+            </button>
+
+
+
+            <!-- BOOKS -->
+
+            <button
+                class="side-link"
+                type="button"
+            >
+
+                <span>
+
+                    <i
+                        class="fa-solid fa-book"
+                    ></i>
+
+                </span>
+
+                Books & Stationery
+
+                <b>›</b>
+
+            </button>
+
+
+
+            <!-- SETTINGS -->
+
+            <button
+                class="side-link"
+                type="button"
+            >
+
+                <span>
+
+                    <i
+                        class="fa-solid fa-gear"
+                    ></i>
+
+                </span>
+
+                Settings & Help
+
+                <b>›</b>
+
+            </button>
+
+
+        </nav>
+
+
+
+        <!-- DELIVERY -->
+
+        <div class="delivery-card">
+
+
+            <div class="truck">
+
+                <i
+                    class="fa-solid fa-truck-fast"
+                ></i>
+
+            </div>
+
+
+            <strong>
+
+                Free Delivery<br>
+
+                On All Orders
+
+            </strong>
+
+
+            <small>
+
+                Fast · Safe · Reliable
+
+            </small>
+
+
+        </div>
+
+
+    </aside>
+
+
+
+    <!-- =====================================================
+         MAIN CONTENT
+    ====================================================== -->
+
+    <main class="main-content">
+
+
+        <!-- =================================================
+             HERO
+        ================================================== -->
+
+        <section class="hero">
+
+
+            <img
+                src="images/hero-banner.jpeg"
+                alt="ShopNest Banner"
+                class="hero-image"
+            >
+
+
+            <button
+                class="hero-shop-btn"
+                id="heroShopBtn"
+                type="button"
+            >
+
+                Shop Now →
+
+            </button>
+
+
+        </section>
+
+
+
+        <!-- =================================================
+             FEATURES
+        ================================================== -->
+
+        <section class="features">
+
+
+            <div>
+
+                <span>
+
+                    <i
+                        class="fa-solid fa-truck-fast"
+                    ></i>
+
+                </span>
+
+
+                <b>
+
+                    Fast & Reliable
+
+                    <small>
+                        Delivery
+                    </small>
+
+                </b>
+
+            </div>
+
+
+
+            <div>
+
+                <span>
+
+                    <i
+                        class="fa-solid fa-shield-halved"
+                    ></i>
+
+                </span>
+
+
+                <b>
+
+                    Secure
+
+                    <small>
+                        Payments
+                    </small>
+
+                </b>
+
+            </div>
+
+
+
+            <div>
+
+                <span>
+
+                    <i
+                        class="fa-solid fa-tags"
+                    ></i>
+
+                </span>
+
+
+                <b>
+
+                    Best
+
+                    <small>
+                        Deals & Offers
+                    </small>
+
+                </b>
+
+            </div>
+
+
+
+            <div>
+
+                <span>
+
+                    <i
+                        class="fa-solid fa-headset"
+                    ></i>
+
+                </span>
+
+
+                <b>
+
+                    24/7
+
+                    <small>
+                        Customer Support
+                    </small>
+
+                </b>
+
+            </div>
+
+
+
+            <div>
+
+                <span>
+
+                    <i
+                        class="fa-solid fa-box-open"
+                    ></i>
+
+                </span>
+
+
+                <b>
+
+                    Easy
+
+                    <small>
+                        Returns
+                    </small>
+
+                </b>
+
+            </div>
+
+
+        </section>
+
+
+
+        <!-- =================================================
+             CATEGORY
+        ================================================== -->
+
+        <section class="section">
+
+
+            <div class="section-title">
+
+
+                <h2>
+                    Shop by Category
+                </h2>
+
+
+                <button
+                    type="button"
+                    class="category-view-all"
+                >
+                    View All →
+                </button>
+
+
+            </div>
+
+
+
+            <div class="category-grid">
+
+
+                <!-- ELECTRONICS -->
+
+                <div
+                    class="category-card electronics"
+                >
+
+                    <img
+                        src="images/electronics.jpeg"
+                        alt="Electronics"
+                    >
+
+
+                    <strong>
+                        Electronics
+                    </strong>
+
+
+                    <small>
+                        (Laptop, Headphones, Mobile)
+                    </small>
+
+
+                    <span>
+                        →
+                    </span>
+
+
+                </div>
+
+
+
+                <!-- FASHION -->
+
+                <div
+                    class="category-card fashion"
+                >
+
+                    <img
+                        src="images/fashion.jpeg"
+                        alt="Fashion"
+                    >
+
+
+                    <strong>
+                        Fashion
+                    </strong>
+
+
+                    <small>
+                        (Trendy Styles)
+                    </small>
+
+
+                    <span>
+                        →
+                    </span>
+
+
+                </div>
+
+
+
+                <!-- HOME -->
+
+                <div
+                    class="category-card home"
+                >
+
+                    <img
+                        src="images/home-living.jpeg"
+                        alt="Home and Living"
+                    >
+
+
+                    <strong>
+                        Home & Living
+                    </strong>
+
+
+                    <small>
+                        (Make it Home)
+                    </small>
+
+
+                    <span>
+                        →
+                    </span>
+
+
+                </div>
+
+
+            </div>
+
+        </section>
+
+
+
+        <!-- =================================================
+             PRODUCTS
+        ================================================== -->
+
+        <section class="section">
+
+
+            <div class="section-title">
+
+
+                <div>
+
+                    <h2>
+
+                        <i
+                            class="fa-solid fa-fire"
+                        ></i>
+
+                        Top Deals For You
+
+                    </h2>
+
+
+                    <p>
+                        Products from ShopNest shops
+                    </p>
+
+                </div>
+
+
+                <button
+                    type="button"
+                    class="products-view-all"
+                >
+                    View All →
+                </button>
+
+
+            </div>
+
+
+
+            <!-- PRODUCT GRID -->
+
+            <div
+                id="productGrid"
+                class="product-grid"
+            >
+
+
+                <!-- NO PRODUCTS -->
+
+                <div
+                    class="empty-products"
+                    id="emptyProducts"
+                >
+
+
+                    <div
+                        class="empty-product-icon"
+                    >
+
+                        <i
+                            class="fa-solid fa-box-open"
+                        ></i>
+
+                    </div>
+
+
+                    <h3>
+                        No Products Yet
+                    </h3>
+
+
+                    <p>
+
+                        Products will appear here
+                        when a shopkeeper adds
+                        products to ShopNest.
+
+                    </p>
+
+
+                </div>
+
+
+            </div>
+
+
+        </section>
+
+
+    </main>
+
+
+
+    <!-- =====================================================
+         RIGHT SIDEBAR
+    ====================================================== -->
+
+    <aside class="right-sidebar">
+
+
+        <!-- SHOP PROFILE HEADER -->
+
+        <div class="shop-profile-head">
+
+
+            <div
+                class="shop-icon"
+                id="shopProfileIcon"
+            >
+
+                <i
+                    class="fa-solid fa-store"
+                ></i>
+
+            </div>
+
+
+            <div>
+
+
+                <h2>
+                    Shop Profile
+                </h2>
+
+
+                <p>
+
+                    Complete your shop profile
+                    to build trust and get
+                    more customers.
+
+                </p>
+
+
+            </div>
+
+        </div>
+
+
+
+        <!-- =================================================
+             PROGRESS
+        ================================================== -->
+
+        <div class="progress-row">
+
+
+            <div class="progress">
+
+                <span
+                    id="profileProgress"
+                ></span>
+
+            </div>
+
+
+            <b id="profileProgressText">
+                0/6 Completed
+            </b>
+
+
+        </div>
+
+
+
+        <!-- =================================================
+             SHOP NAME
+        ================================================== -->
+
+        <div
+            class="shop-check"
+            id="shopNameCheck"
+        >
+
+
+            <span>
+
+                <i
+                    class="fa-solid fa-store"
+                ></i>
+
+            </span>
+
+
+            <div>
+
+                <b>
+                    Shop Name
+                </b>
+
+
+                <small id="displayShopName">
+                    Not added
+                </small>
+
+
+            </div>
+
+
+            <i
+                class="fa-solid fa-check check-icon"
+            ></i>
+
+
+        </div>
+
+
+
+        <!-- =================================================
+             OWNER NAME
+        ================================================== -->
+
+        <div
+            class="shop-check"
+            id="ownerNameCheck"
+        >
+
+
+            <span>
+
+                <i
+                    class="fa-solid fa-user"
+                ></i>
+
+            </span>
+
+
+            <div>
+
+                <b>
+                    Owner Name
+                </b>
+
+
+                <small id="displayOwnerName">
+                    Not added
+                </small>
+
+
+            </div>
+
+
+            <i
+                class="fa-solid fa-check check-icon"
+            ></i>
+
+
+        </div>
+
+
+
+        <!-- =================================================
+             CATEGORY
+        ================================================== -->
+
+        <div
+            class="shop-check"
+            id="categoryCheck"
+        >
+
+
+            <span>
+
+                <i
+                    class="fa-solid fa-layer-group"
+                ></i>
+
+            </span>
+
+
+            <div>
+
+                <b>
+                    Shop Category
+                </b>
+
+
+                <small id="displayCategory">
+                    Not added
+                </small>
+
+
+            </div>
+
+
+            <i
+                class="fa-solid fa-check check-icon"
+            ></i>
+
+
+        </div>
+
+
+
+        <!-- =================================================
+             ADDRESS
+        ================================================== -->
+
+        <div
+            class="shop-check"
+            id="addressCheck"
+        >
+
+
+            <span>
+
+                <i
+                    class="fa-solid fa-location-dot"
+                ></i>
+
+            </span>
+
+
+            <div>
+
+                <b>
+                    Shop Address
+                </b>
+
+
+                <small id="displayAddress">
+                    Not added
+                </small>
+
+
+            </div>
+
+
+            <i
+                class="fa-solid fa-check check-icon"
+            ></i>
+
+
+        </div>
+
+
+
+        <!-- =================================================
+             SHOP PICTURE
+        ================================================== -->
+
+        <div
+            class="shop-check"
+            id="pictureCheck"
+        >
+
+
+            <span>
+
+                <i
+                    class="fa-solid fa-image"
+                ></i>
+
+            </span>
+
+
+            <div>
+
+                <b>
+                    Shop Picture
+                </b>
+
+
+                <small id="displayPicture">
+                    Not uploaded
+                </small>
+
+
+            </div>
+
+
+            <i
+                class="fa-solid fa-check check-icon"
+            ></i>
+
+
+        </div>
+
+
+
+        <!-- =================================================
+             USERNAME
+        ================================================== -->
+
+        <div
+            class="shop-check"
+            id="usernameCheck"
+        >
+
+
+            <span>
+
+                <i
+                    class="fa-solid fa-at"
+                ></i>
+
+            </span>
+
+
+            <div>
+
+                <b>
+                    Username
+                </b>
+
+
+                <small id="displayUsername">
+                    Not added
+                </small>
+
+
+            </div>
+
+
+            <i
+                class="fa-solid fa-check check-icon"
+            ></i>
+
+
+        </div>
+
+
+
+        <!-- =================================================
+             SEE PROFILE
+        ================================================== -->
+
+        <button
+            class="see-all"
+            id="seeAllBtn"
+            type="button"
+        >
+
+            See Profile →
+
+        </button>
+
+
+    </aside>
+
+
+</div>
+
+
+
+<!-- =========================================================
+     COMPLETE SHOP PROFILE MODAL
+========================================================= -->
+
+<div
+    class="shop-profile-modal"
+    id="shopProfileModal"
+>
+
+
+    <div class="profile-modal-box">
+
+
+        <!-- MODAL HEADER -->
+
+        <div class="profile-modal-header">
+
+
+            <div>
+
+                <h2>
+                    Complete Shop Profile
+                </h2>
+
+                <p>
+                    Add information about your shop
+                </p>
+
+            </div>
+
+
+            <button
+                type="button"
+                id="closeProfileForm"
+                class="close-profile-btn"
+            >
+
+                <i
+                    class="fa-solid fa-xmark"
+                ></i>
+
+            </button>
+
+
+        </div>
+
+
+
+        <!-- =================================================
+             FORM
+        ================================================== -->
+
+        <div class="profile-form">
+
+
+            <!-- SHOP LOGO -->
+
+            <div class="form-group">
+
+
+                <label for="profileLogo">
+                    Shop Logo
+                </label>
+
+
+                <input
+                    type="file"
+                    id="profileLogo"
+                    accept="image/png,image/jpeg,image/jpg,image/webp"
+                >
+
+
+                <small>
+                    Upload JPG, PNG or WEBP image
+                </small>
+
+
+            </div>
+
+
+
+            <!-- DESCRIPTION -->
+
+            <div class="form-group">
+
+
+                <label for="profileDescription">
+                    Shop Description
+                </label>
+
+
+                <textarea
+                    id="profileDescription"
+                    rows="4"
+                    placeholder="Write something about your shop..."
+                ></textarea>
+
+
+            </div>
+
+
+
+            <!-- PHONE -->
+
+            <div class="form-group">
+
+
+                <label for="profilePhone">
+                    Phone Number
+                </label>
+
+
+                <input
+                    type="text"
+                    id="profilePhone"
+                    placeholder="Enter phone number"
+                >
+
+
+            </div>
+
+
+
+            <!-- WHATSAPP -->
+
+            <div class="form-group">
+
+
+                <label for="profileWhatsapp">
+                    WhatsApp Number
+                </label>
+
+
+                <input
+                    type="text"
+                    id="profileWhatsapp"
+                    placeholder="Enter WhatsApp number"
+                >
+
+
+            </div>
+
+
+
+            <!-- BUTTONS -->
+
+            <div class="profile-form-buttons">
+
+
+                <button
+                    type="button"
+                    id="cancelProfileForm"
+                    class="cancel-profile-btn"
+                >
+
+                    Cancel
+
+                </button>
+
+
+                <button
+                    type="button"
+                    id="saveProfileForm"
+                    class="save-profile-btn"
+                >
+
+                    Save Profile
+
+                </button>
+
+
+            </div>
+
+
+        </div>
+
+
+    </div>
+
+</div>
+
+
+
+<!-- =========================================================
+     JAVASCRIPT
+========================================================= -->
+
+<script src="home.js"></script>
+
+
+</body>
+
+</html>

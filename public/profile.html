@@ -1,0 +1,104 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>ShopNest | Shop Profile</title>
+<link rel="stylesheet" href="profile.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+</head>
+<body>
+<header class="topbar">
+  <a class="brand" href="home.html"><span class="brand-icon"><i class="fa-solid fa-bag-shopping"></i></span>Shop<span>Nest</span></a>
+  <nav><a href="home.html"><i class="fa-solid fa-house"></i> Home</a>
+    <button id="shareProfileBtn" class="btn light"><i class="fa-solid fa-share-nodes"></i> Share Profile</button>
+    <button id="logoutBtn" class="btn outline"><i class="fa-solid fa-right-from-bracket"></i> Logout</button>
+  </nav>
+</header>
+<main class="wrap">
+  <section class="profile-card">
+    <div id="shopBanner" class="banner" style="display:none" aria-label="Shop banner"></div>
+    <div class="profile-main">
+      <div class="avatar">
+        <img id="shopLogo" alt="Shop logo" style="display:none">
+        <div id="shopLogoPlaceholder" class="logo-placeholder"><i class="fa-solid fa-store"></i></div>
+      </div>
+      <div class="identity">
+        <div class="name-row"><h1 id="profileShopName">My Shop</h1><span class="verified"><i class="fa-solid fa-circle-check"></i> Shop profile</span></div>
+        <p id="profileUsername" class="username">@username</p>
+        <p id="profileDescription" class="description">Your shop description will appear here.</p>
+        <div class="info-row"><span><i class="fa-solid fa-layer-group"></i> <b id="profileCategory">Category not added</b></span>
+        <span><i class="fa-solid fa-location-dot"></i> <b id="profileAddress">Address not added</b></span></div>
+        <div class="info-row"><span><i class="fa-solid fa-user"></i> Owner: <b id="profileOwner">Not added</b></span>
+        <span><i class="fa-solid fa-phone"></i> <b id="profilePhone">Not added</b></span>
+        <span><i class="fa-brands fa-whatsapp"></i> <b id="profileWhatsapp">Not added</b></span></div>
+      </div>
+      <div class="profile-actions">
+        <button id="editProfileBtn" class="btn primary"><i class="fa-solid fa-pen"></i> Edit Profile</button>
+        <button id="addProductBtn" class="btn dark"><i class="fa-solid fa-plus"></i> Add Product</button>
+      </div>
+    </div>
+  </section>
+
+  <section class="products-section">
+    <div class="section-head"><div><p class="eyebrow">SHOP CATALOGUE</p><h2>Products</h2><p class="muted">Products you upload will appear here.</p></div>
+      <button id="addProductBtnSecondary" class="btn primary"><i class="fa-solid fa-plus"></i> Add Product</button>
+    </div>
+    <div id="productGrid" class="product-grid">
+      <div id="noProductsMessage" class="empty-state"><div class="empty-icon"><i class="fa-solid fa-box-open"></i></div>
+        <h3>No products yet</h3><p>Add your first product to display it on your shop profile.</p>
+        <button id="emptyAddProductBtn" class="btn primary">Add your first product</button>
+      </div>
+    </div>
+  </section>
+  <footer>© <span id="currentYear"></span> ShopNest · Your shop, your story.</footer>
+</main>
+
+<div id="editProfileModal" class="modal-overlay" aria-hidden="true">
+ <section class="modal-panel" role="dialog" aria-modal="true" aria-labelledby="editTitle">
+  <div class="modal-head"><div><p class="eyebrow">SHOP SETTINGS</p><h2 id="editTitle">Edit shop profile</h2></div>
+   <button id="closeEditProfile" class="icon-btn" type="button" aria-label="Close"><i class="fa-solid fa-xmark"></i></button></div>
+  <p class="muted">Update your shop details. Logo and banner are optional.</p>
+  <form id="editProfileForm">
+   <div class="form-grid">
+    <label>Shop name<input id="editShopName" required maxlength="100"></label>
+    <label>Owner name<input id="editOwnerName" maxlength="100"></label>
+    <label>Username<input id="editUsername" required maxlength="40"></label>
+    <label>Category<select id="editCategory" required><option value="">Choose category</option><option>Clothing</option><option>Electronics</option><option>Footwear</option><option>Food</option><option>Grocery</option><option>Beauty</option><option>Home</option><option>Other</option></select></label>
+    <label class="full">Shop address<input id="editAddress" maxlength="250"></label>
+    <label class="full">Description<textarea id="editDescription" rows="3" maxlength="1000"></textarea></label>
+    <label>Phone<input id="editPhone" type="tel" maxlength="20"></label>
+    <label>WhatsApp<input id="editWhatsapp" type="tel" maxlength="20"></label>
+    <label>Shop logo<input id="editLogo" type="file" accept="image/png,image/jpeg,image/webp"><small>JPG, PNG, WEBP · max 5 MB</small></label>
+    <label>Shop banner<input id="editBanner" type="file" accept="image/png,image/jpeg,image/webp"><small>JPG, PNG, WEBP · max 5 MB</small></label>
+   </div>
+   <div class="modal-actions"><button id="cancelEditProfile" class="btn light" type="button">Cancel</button><button class="btn primary" type="submit"><i class="fa-solid fa-floppy-disk"></i> Save changes</button></div>
+  </form>
+ </section>
+</div>
+
+<div id="addProductModal" class="modal-overlay" aria-hidden="true">
+ <section class="modal-panel" role="dialog" aria-modal="true" aria-labelledby="productModalTitle">
+  <div class="modal-head"><div><p class="eyebrow">SHOP CATALOGUE</p><h2 id="productModalTitle">Add a product</h2></div>
+   <button id="closeAddProduct" class="icon-btn" type="button" aria-label="Close"><i class="fa-solid fa-xmark"></i></button></div>
+  <p class="muted">Category-specific fields appear below.</p>
+  <form id="addProductForm">
+   <label>Product image<input id="productImage" type="file" accept="image/png,image/jpeg,image/webp" required><small>Max 5 MB</small></label>
+   <label>Product title<input id="productTitle" type="text" maxlength="120" required></label>
+   <label>Description<textarea id="productDescription" rows="3" maxlength="2000" required></textarea></label>
+   <label>Price (₹)<input id="productPrice" type="number" min="0.01" step="0.01" required></label>
+   <div id="categoryFields" class="form-grid category-fields"></div>
+   <div class="modal-actions"><button id="cancelAddProduct" class="btn light" type="button">Cancel</button><button class="btn primary" type="submit"><i class="fa-solid fa-cloud-arrow-up"></i> Upload product</button></div>
+  </form>
+ </section>
+</div>
+<script src="profile.js" defer></script>
+<script>
+document.getElementById('currentYear').textContent = new Date().getFullYear();
+['addProductBtnSecondary','emptyAddProductBtn'].forEach(id=>document.getElementById(id)?.addEventListener('click',()=>document.getElementById('addProductBtn')?.click()));
+function closeProductModal(){const m=document.getElementById('addProductModal');m?.classList.remove('show');m?.setAttribute('aria-hidden','true');}
+document.getElementById('closeAddProduct')?.addEventListener('click',closeProductModal);
+document.getElementById('cancelAddProduct')?.addEventListener('click',closeProductModal);
+</script>
+</body>
+</html>

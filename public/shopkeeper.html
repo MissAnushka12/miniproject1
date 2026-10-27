@@ -1,0 +1,425 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>ShopNest | Shop Dashboard</title>
+  <link rel="stylesheet" href="shopkeeper.css" />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+</head>
+
+<body>
+  <div class="dashboard-layout">
+
+    <!-- SIDEBAR -->
+    <aside class="sidebar">
+      <a href="shopkeeper.html" class="brand">
+        <i class="fa-solid fa-bag-shopping"></i>
+        <span>Shop<span class="brand-blue">Nest</span></span>
+      </a>
+
+      <nav class="sidebar-nav">
+        <a class="nav-link active" href="shopkeeper.html">
+          <i class="fa-solid fa-house"></i> Dashboard
+        </a>
+        <a class="nav-link" href="#productsSection">
+          <i class="fa-solid fa-box"></i> Products
+        </a>
+        <a class="nav-link" href="#statsSection">
+          <i class="fa-solid fa-cart-shopping"></i> Orders
+        </a>
+        <a class="nav-link" href="#shopDetails">
+          <i class="fa-solid fa-users"></i> Customers
+        </a>
+        <a class="nav-link" href="#statsSection">
+          <i class="fa-solid fa-chart-line"></i> Analytics
+        </a>
+        <a class="nav-link" href="#shopDetails">
+          <i class="fa-solid fa-gear"></i> Shop Settings
+        </a>
+      </nav>
+
+      <button type="button" class="logout-btn" id="logoutBtn">
+        <i class="fa-solid fa-right-from-bracket"></i> Logout
+      </button>
+    </aside>
+
+    <!-- MAIN CONTENT -->
+    <main class="main-content">
+
+      <!-- PROFILE BANNER -->
+      <section class="profile-card">
+        <div class="banner-bg" id="bannerBg">
+          <img id="shopBanner" alt="Shop cover banner" hidden>
+          <span class="online-shop-badge">
+            <i class="fa-solid fa-store"></i> YOUR ONLINE SHOP
+          </span>
+        </div>
+
+        <div class="profile-main">
+          <div class="shop-avatar-wrap">
+            <img
+              id="shopLogo"
+              class="shop-avatar"
+              src="https://placehold.co/160x160/eaf1ff/2563eb?text=Shop"
+              alt="Shop logo"
+            >
+          </div>
+
+          <div class="profile-identity">
+            <h1 id="shopName">My Shop</h1>
+            <p id="username" class="profile-username">@username</p>
+
+            <div class="profile-stats">
+              <div>
+                <strong id="postCount">0</strong>
+                <span>Posts</span>
+              </div>
+              <div>
+                <strong id="followerCount">0</strong>
+                <span>Followers</span>
+              </div>
+              <div>
+                <strong id="followingCount">0</strong>
+                <span>Following</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="profile-actions">
+            <button type="button" class="btn btn-primary" id="editProfileBtn">
+              <i class="fa-solid fa-pen"></i> Edit Profile
+            </button>
+            <button type="button" class="btn btn-outline" id="shareProfileBtn">
+              <i class="fa-solid fa-share-nodes"></i> Share Profile
+            </button>
+          </div>
+        </div>
+      </section>
+
+      <!-- SHOP DETAILS -->
+      <section class="content-card" id="shopDetails">
+        <div class="section-heading">
+          <div class="section-icon">
+            <i class="fa-solid fa-store"></i>
+          </div>
+          <div>
+            <h2>Shop Description</h2>
+            <p>Tell customers about your business</p>
+          </div>
+        </div>
+
+        <p id="shopDescription" class="shop-description">
+          Your shop description will appear here.
+        </p>
+
+        <div class="details-grid">
+          <div class="detail-item">
+            <i class="fa-solid fa-user"></i>
+            <div><span>Owner</span><strong id="ownerName">Not added</strong></div>
+          </div>
+          <div class="detail-item">
+            <i class="fa-solid fa-tags"></i>
+            <div><span>Category</span><strong id="category">Not added</strong></div>
+          </div>
+          <div class="detail-item">
+            <i class="fa-solid fa-location-dot"></i>
+            <div><span>Address</span><strong id="shopAddress">Not added</strong></div>
+          </div>
+          <div class="detail-item">
+            <i class="fa-solid fa-phone"></i>
+            <div><span>Phone</span><strong id="phone">Not added</strong></div>
+          </div>
+          <div class="detail-item">
+            <i class="fa-brands fa-whatsapp"></i>
+            <div><span>WhatsApp</span><strong id="whatsapp">Not added</strong></div>
+          </div>
+          <div class="detail-item">
+            <i class="fa-solid fa-at"></i>
+            <div><span>Username</span><strong id="detailUsername">@username</strong></div>
+          </div>
+        </div>
+      </section>
+
+      <!-- STATS -->
+      <section class="stats-layout" id="statsSection">
+        <div class="start-selling-card">
+          <div>
+            <h2>Start Selling Your Products</h2>
+            <p>Add products to showcase your shop to customers.</p>
+            <button type="button" class="btn btn-primary" id="addProductBtn">
+              <i class="fa-solid fa-plus"></i> Add Product
+            </button>
+          </div>
+          <div class="selling-icon"><i class="fa-solid fa-box-open"></i></div>
+        </div>
+
+        <div class="metric-card products-metric">
+          <i class="fa-solid fa-box"></i>
+          <span>Products</span>
+          <strong id="productCount">0</strong>
+        </div>
+
+        <div class="metric-card orders-metric">
+          <i class="fa-solid fa-cart-shopping"></i>
+          <span>Orders</span>
+          <strong id="orderCount">0</strong>
+        </div>
+
+        <div class="metric-card sales-metric">
+          <i class="fa-solid fa-indian-rupee-sign"></i>
+          <span>Sales</span>
+          <strong id="salesCount">₹0</strong>
+        </div>
+
+        <div class="metric-card views-metric">
+          <i class="fa-solid fa-eye"></i>
+          <span>Views</span>
+          <strong id="viewCount">0</strong>
+        </div>
+      </section>
+
+      <!-- PRODUCTS -->
+      <section class="content-card products-section" id="productsSection">
+        <div class="section-heading products-heading">
+          <div>
+            <h2>My Products</h2>
+            <p>Manage the products available in your shop</p>
+          </div>
+          <button type="button" class="btn btn-primary" id="addProductBtn2">
+            <i class="fa-solid fa-plus"></i> Add Product
+          </button>
+        </div>
+
+        <div id="productGrid" class="product-grid"></div>
+
+        <div id="emptyProducts" class="empty-products">
+          <i class="fa-solid fa-box-open"></i>
+          <h3>No products yet</h3>
+          <p>Add your first product to start showcasing your shop.</p>
+          <button type="button" class="btn btn-primary" id="emptyAddProductBtn">
+            <i class="fa-solid fa-plus"></i> Add Your First Product
+          </button>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <!-- EDIT PROFILE MODAL -->
+  <div class="modal" id="editProfileModal" aria-hidden="true">
+    <div class="modal-backdrop" data-close-modal="editProfileModal"></div>
+
+    <div class="modal-dialog" role="dialog" aria-modal="true" aria-labelledby="editProfileTitle">
+      <div class="modal-header">
+        <div>
+          <h2 id="editProfileTitle">Edit Shop Profile</h2>
+          <p>Update your shop details, logo and banner.</p>
+        </div>
+        <button type="button" class="icon-btn" id="closeEditProfile" aria-label="Close">
+          <i class="fa-solid fa-xmark"></i>
+        </button>
+      </div>
+
+      <form id="editProfileForm">
+        <div class="modal-body">
+          <div class="form-group">
+            <label for="editShopName">Shop Name</label>
+            <input id="editShopName" name="shopName" type="text" required maxlength="80">
+          </div>
+
+          <div class="form-group">
+            <label for="editOwnerName">Owner Name</label>
+            <input id="editOwnerName" name="ownerName" type="text" required maxlength="80">
+          </div>
+
+          <div class="form-group">
+            <label for="editUsername">Username</label>
+            <input id="editUsername" name="username" type="text" required maxlength="30">
+          </div>
+
+          <div class="form-group">
+            <label for="editCategory">Shop Category</label>
+            <select id="editCategory" name="category" required>
+              <option value="">Select category</option>
+              <option value="Food">Food</option>
+              <option value="Fashion">Fashion</option>
+              <option value="Electronics">Electronics</option>
+              <option value="Beauty">Beauty</option>
+              <option value="Grocery">Grocery</option>
+              <option value="Home & Living">Home &amp; Living</option>
+              <option value="Handmade">Handmade</option>
+              <option value="Other">Other</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label for="editAddress">Shop Address</label>
+            <input id="editAddress" name="shopAddress" type="text" maxlength="200">
+          </div>
+
+          <div class="form-group">
+            <label for="editDescription">Shop Description</label>
+            <textarea id="editDescription" name="description" rows="3" maxlength="1000"></textarea>
+          </div>
+
+          <div class="form-group">
+            <label for="editPhone">Phone Number</label>
+            <input id="editPhone" name="phone" type="tel" maxlength="20">
+          </div>
+
+          <div class="form-group">
+            <label for="editWhatsapp">WhatsApp Number</label>
+            <input id="editWhatsapp" name="whatsapp" type="tel" maxlength="20">
+          </div>
+
+          <!-- LOGO UPLOAD -->
+          <div class="form-group">
+            <label for="editLogo">Shop Logo / Profile Picture</label>
+            <input id="editLogo" name="shopPicture" type="file" accept="image/png,image/jpeg,image/webp">
+            <p class="field-help">Select a photo. Crop and position it in the next step.</p>
+          </div>
+
+          <!-- BANNER UPLOAD -->
+          <div class="form-group">
+            <label for="editBanner">Shop Cover Banner</label>
+            <input id="editBanner" name="shopBanner" type="file" accept="image/png,image/jpeg,image/webp">
+            <p class="field-help">Choose a wide image for your shop cover.</p>
+          </div>
+        </div>
+
+        <div class="modal-footer">
+          <button type="button" class="btn btn-outline" id="cancelEditProfile">Cancel</button>
+          <button type="submit" class="btn btn-primary" id="saveProfileBtn">
+            <i class="fa-solid fa-check"></i> Save Changes
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- CROP & ADJUST MODAL -->
+  <div class="modal" id="cropModal" aria-hidden="true">
+    <div class="modal-backdrop" data-close-modal="cropModal"></div>
+
+    <div class="modal-dialog crop-dialog" role="dialog" aria-modal="true" aria-labelledby="cropTitle">
+      <div class="modal-header">
+        <div>
+          <h2 id="cropTitle">Crop &amp; Adjust</h2>
+          <p>Drag the image and zoom in or out to fit it.</p>
+        </div>
+        <button type="button" class="icon-btn" id="closeCropModal" aria-label="Close crop editor">
+          <i class="fa-solid fa-xmark"></i>
+        </button>
+      </div>
+
+      <div class="modal-body">
+        <div class="crop-type-tabs">
+          <button type="button" class="crop-type-btn active" id="cropLogoTab" data-crop-type="logo">
+            <i class="fa-solid fa-circle-user"></i> Shop Logo
+          </button>
+          <button type="button" class="crop-type-btn" id="cropBannerTab" data-crop-type="banner">
+            <i class="fa-solid fa-panorama"></i> Cover Banner
+          </button>
+        </div>
+
+        <div class="crop-workspace">
+          <div id="cropViewport" class="crop-viewport crop-circle">
+            <img id="cropImage" alt="Image to crop" draggable="false">
+          </div>
+        </div>
+
+        <div class="crop-controls">
+          <label for="cropZoom">
+            <i class="fa-solid fa-magnifying-glass-minus"></i>
+            Zoom
+          </label>
+          <input id="cropZoom" type="range" min="1" max="3" value="1" step="0.01">
+          <i class="fa-solid fa-magnifying-glass-plus"></i>
+        </div>
+
+        <p class="field-help crop-help">
+          Drag the image inside the frame to adjust its position.
+        </p>
+      </div>
+
+      <div class="modal-footer">
+        <button type="button" class="btn btn-outline" id="cancelCropBtn">Cancel</button>
+        <button type="button" class="btn btn-primary" id="applyCropBtn">
+          <i class="fa-solid fa-check"></i> Apply Crop
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ADD PRODUCT MODAL -->
+  <div class="modal" id="addProductModal" aria-hidden="true">
+    <div class="modal-backdrop" data-close-modal="addProductModal"></div>
+
+    <div class="modal-dialog" role="dialog" aria-modal="true" aria-labelledby="addProductTitle">
+      <div class="modal-header">
+        <div>
+          <h2 id="addProductTitle">Add New Product</h2>
+          <p>Enter the details of the product you want to sell.</p>
+        </div>
+        <button type="button" class="icon-btn" id="closeAddProduct" aria-label="Close">
+          <i class="fa-solid fa-xmark"></i>
+        </button>
+      </div>
+
+      <form id="addProductForm">
+        <div class="modal-body">
+          <div class="form-group">
+            <label for="productImage">Product Image</label>
+            <input id="productImage" name="image" type="file" accept="image/png,image/jpeg,image/webp" required>
+          </div>
+
+          <div class="form-group">
+            <label for="productTitle">Product Name</label>
+            <input id="productTitle" name="title" type="text" required maxlength="120">
+          </div>
+
+          <div class="form-group">
+            <label for="productDescription">Product Description</label>
+            <textarea id="productDescription" name="description" rows="3" required maxlength="2000"></textarea>
+          </div>
+
+          <div class="form-group">
+            <label for="productPrice">Price (₹)</label>
+            <input id="productPrice" name="price" type="number" min="0" step="0.01" required>
+          </div>
+
+          <div class="form-group">
+            <label for="productCategory">Product Category</label>
+            <select id="productCategory" name="category" required>
+              <option value="">Select category</option>
+              <option value="Food">Food</option>
+              <option value="Fashion">Fashion</option>
+              <option value="Electronics">Electronics</option>
+              <option value="Beauty">Beauty</option>
+              <option value="Grocery">Grocery</option>
+              <option value="Home & Living">Home &amp; Living</option>
+              <option value="Handmade">Handmade</option>
+              <option value="Other">Other</option>
+            </select>
+          </div>
+
+          <div id="productCategoryFields" class="category-fields"></div>
+        </div>
+
+        <div class="modal-footer">
+          <button type="button" class="btn btn-outline" id="cancelAddProduct">Cancel</button>
+          <button type="submit" class="btn btn-primary" id="saveProductBtn">
+            <i class="fa-solid fa-plus"></i> Save Product
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <script src="shopkeeper.js"></script>
+</body>
+</html>
