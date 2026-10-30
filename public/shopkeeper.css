@@ -1,11 +1,8 @@
 
-
-
-
-/* 
- ========================================
+/* ========================================
    SHOPNEST - SHOPKEEPER DASHBOARD
-   ========================================  */
+   COMPLETE CSS
+   ======================================== */
 
 :root {
   --primary: #2864ed;
@@ -75,7 +72,7 @@ img {
   position: fixed;
   top: 0;
   left: 0;
-  width: 216px;
+  width: 240px;
   height: 100vh;
   padding: 22px 15px;
   display: flex;
@@ -83,6 +80,7 @@ img {
   background: #fff;
   border-right: 1px solid var(--border);
   z-index: 50;
+  overflow-y: auto;
 }
 
 .brand {
@@ -125,6 +123,7 @@ img {
 
 .nav-link i {
   width: 17px;
+  flex-shrink: 0;
   font-size: 15px;
   text-align: center;
 }
@@ -158,10 +157,11 @@ img {
 }
 
 .main-content {
-  width: calc(100% - 216px);
+  flex: 1;
+  width: calc(100% - 240px);
   min-width: 0;
-  margin-left: 216px;
-  padding: 30px 26px;
+  margin-left: 240px;
+  padding: 24px;
 }
 
 /* ========================================
@@ -181,49 +181,38 @@ img {
 .banner-bg {
   position: relative;
   width: 100%;
-  height: 187px;
+  height: 280px;
   overflow: hidden;
-  background:
-    linear-gradient(
-      155deg,
-      transparent 42%,
-      rgba(255, 112, 34, 0.95) 42.2%,
-      rgba(255, 112, 34, 0.8) 57%,
-      transparent 72%
-    ),
-    linear-gradient(
-      110deg,
-      #078bc6 0%,
-      #1b4bd4 46%,
-      #425e9b 72%,
-      #89525b 100%
-    );
+  background-color: #33251b;
+  border-radius: 14px 14px 0 0;
 }
 
+/* Banner image */
 .banner-bg > img {
   position: absolute;
   inset: 0;
   display: block;
   width: 100%;
   height: 100%;
+  max-width: none;
   object-fit: cover;
-  object-position: center;
+  object-position: center center;
 }
 
 .banner-bg > img[hidden] {
-  display: none;
+  display: none !important;
 }
 
 .online-shop-badge {
   position: absolute;
   top: 18px;
   right: 20px;
-  z-index: 2;
+  z-index: 4;
   padding: 10px 14px;
   border: 1px solid rgba(255, 255, 255, 0.3);
   border-radius: 30px;
   color: #fff;
-  background: rgba(255, 255, 255, 0.19);
+  background: rgba(30, 30, 30, 0.42);
   backdrop-filter: blur(8px);
   font-size: 10px;
   font-weight: 800;
@@ -236,7 +225,7 @@ img {
 
 .profile-main {
   position: relative;
-  min-height: 120px;
+  min-height: 130px;
   display: flex;
   align-items: center;
   gap: 22px;
@@ -254,7 +243,7 @@ img {
   border: 4px solid var(--orange);
   background: #fff;
   box-shadow: 0 5px 15px rgba(0, 0, 0, 0.13);
-  z-index: 3;
+  z-index: 5;
 }
 
 .shop-avatar {
@@ -271,7 +260,7 @@ img {
 .profile-identity {
   flex: 1;
   min-width: 0;
-  padding-top: 6px;
+  padding-top: 8px;
 }
 
 .profile-identity h1 {
@@ -333,7 +322,8 @@ img {
   border-radius: 10px;
   font-size: 12px;
   font-weight: 700;
-  transition: transform 0.15s, background 0.2s, box-shadow 0.2s;
+  transition: transform 0.15s, background 0.2s,
+    box-shadow 0.2s;
 }
 
 .btn:hover {
@@ -452,12 +442,14 @@ img {
 }
 
 /* ========================================
-   STATS
+   DASHBOARD STATS
    ======================================== */
 
 .stats-layout {
   display: grid;
-  grid-template-columns: minmax(280px, 2fr) repeat(3, minmax(120px, 1fr));
+  grid-template-columns:
+    minmax(260px, 2fr)
+    repeat(3, minmax(110px, 1fr));
   gap: 14px;
   margin-bottom: 14px;
 }
@@ -509,6 +501,7 @@ img {
   gap: 10px;
   border: 1px solid transparent;
   border-radius: 15px;
+  min-width: 0;
 }
 
 .metric-card > i {
@@ -559,56 +552,81 @@ img {
   justify-content: space-between;
 }
 
-.product-grid {
+.product-grid,
+#productGrid {
   display: grid;
-  grid-template-columns: repeat(4, minmax(0, 1fr));
-  gap: 16px;
+  grid-template-columns: repeat(
+    auto-fill,
+    minmax(220px, 1fr)
+  );
+  gap: 20px;
+  align-items: start;
+  width: 100%;
+  margin-top: 20px;
 }
 
-.product-card {
+.product-card,
+#productGrid .product-card {
   min-width: 0;
   overflow: hidden;
   background: #fff;
-  border: 1px solid var(--border);
-  border-radius: 13px;
-  transition: transform 0.2s, box-shadow 0.2s;
+  border: 1px solid #e8eaf0;
+  border-radius: 14px;
+  box-shadow: 0 3px 12px rgba(20, 35, 70, 0.05);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
 
-.product-card:hover {
+.product-card:hover,
+#productGrid .product-card:hover {
   transform: translateY(-3px);
-  box-shadow: var(--shadow);
+  box-shadow: 0 9px 24px rgba(20, 35, 70, 0.1);
 }
 
-.product-card img {
+.product-card img,
+.product-image,
+#productGrid .product-card .product-image {
   display: block;
   width: 100%;
-  height: 175px;
-  object-fit: cover;
-  background: #f3f5f9;
+  height: 220px;
+  object-fit: contain;
+  object-position: center;
+  background: #f7f8fb;
+  padding: 8px;
 }
 
-.product-card-content {
-  padding: 13px;
+.product-card-content,
+.product-info,
+#productGrid .product-card .product-info {
+  padding: 14px;
 }
 
-.product-card h3 {
-  margin-bottom: 7px;
-  font-size: 13px;
+.product-card h3,
+.product-info h3 {
+  margin: 0 0 8px;
+  color: var(--text);
+  font-size: 16px;
+  font-weight: 700;
+  line-height: 1.4;
   overflow-wrap: anywhere;
 }
 
-.product-card p {
-  margin-bottom: 10px;
-  color: var(--muted);
-  font-size: 11px;
+.product-card p,
+.product-info p:not(.product-price) {
+  margin: 0 0 12px;
+  color: #737b8c;
+  font-size: 13px;
   line-height: 1.6;
   overflow-wrap: anywhere;
 }
 
-.product-price {
-  color: var(--primary);
+.product-price,
+.product-info .product-price {
+  margin: 0;
+  padding-top: 10px;
+  border-top: 1px solid #f0f1f5;
+  color: #176b43;
+  font-size: 19px;
   font-weight: 800;
-  font-size: 15px;
 }
 
 .empty-products {
@@ -634,7 +652,61 @@ img {
 }
 
 .empty-products[hidden] {
-  display: none;
+  display: none !important;
+}
+
+/* Product Edit/Delete actions */
+
+.product-actions,
+#productGrid .product-actions {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 14px;
+  padding-top: 12px;
+  border-top: 1px solid #edf0f5;
+}
+
+.edit-product-btn,
+.delete-product-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  padding: 9px 13px;
+  border-radius: 9px;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.2s ease;
+}
+
+.edit-product-btn {
+  background: #edf4ff;
+  color: var(--primary);
+  border: 1px solid #c7d9ff;
+}
+
+.edit-product-btn:hover {
+  background: #dce9ff;
+}
+
+.delete-product-btn {
+  background: #fff;
+  color: #dc2626;
+  border: 1px solid #fecaca;
+}
+
+.delete-product-btn:hover {
+  background: #fff1f2;
+}
+
+.edit-product-btn:disabled,
+.delete-product-btn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
 }
 
 /* ========================================
@@ -682,6 +754,7 @@ img {
     opacity: 0;
     transform: translateY(8px) scale(0.985);
   }
+
   to {
     opacity: 1;
     transform: translateY(0) scale(1);
@@ -822,7 +895,6 @@ img {
 
 /* ========================================
    CROP & ADJUST EDITOR
-   WhatsApp-style photo positioning + zoom
    ======================================== */
 
 .crop-dialog {
@@ -905,6 +977,7 @@ img {
   width: 100%;
   max-width: 440px;
   height: 220px;
+  flex: 0 1 440px;
   border-radius: 8px;
 }
 
@@ -959,7 +1032,6 @@ img {
   overflow: hidden;
 }
 
-/* Prevent page scrolling while a modal is open */
 body.modal-open {
   overflow: hidden;
 }
@@ -1006,8 +1078,13 @@ body.modal-open {
     max-width: none;
   }
 
-  .product-grid {
+  .product-grid,
+  #productGrid {
     grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+
+  .banner-bg {
+    height: 250px;
   }
 }
 
@@ -1017,11 +1094,9 @@ body.modal-open {
 
 @media (max-width: 760px) {
   .sidebar {
-    position: relative;
+    position: fixed;
     width: 66px;
-    flex: 0 0 66px;
-    height: auto;
-    min-height: 100vh;
+    height: 100vh;
     padding: 14px 8px;
   }
 
@@ -1065,14 +1140,13 @@ body.modal-open {
   }
 
   .main-content {
-    flex: 1;
     width: calc(100% - 66px);
-    margin-left: 0;
+    margin-left: 66px;
     padding: 13px;
   }
 
   .banner-bg {
-    height: 145px;
+    height: 190px;
   }
 
   .profile-main {
@@ -1148,13 +1222,16 @@ body.modal-open {
     min-height: 120px;
   }
 
-  .product-grid {
+  .product-grid,
+  #productGrid {
     grid-template-columns: repeat(2, minmax(0, 1fr));
     gap: 10px;
   }
 
-  .product-card img {
-    height: 140px;
+  .product-card img,
+  .product-image,
+  #productGrid .product-card .product-image {
+    height: 160px;
   }
 
   .crop-workspace {
@@ -1182,12 +1259,8 @@ body.modal-open {
     padding: 8px;
   }
 
-  .brand {
-    font-size: 0;
-  }
-
   .banner-bg {
-    height: 125px;
+    height: 160px;
   }
 
   .online-shop-badge {
@@ -1255,12 +1328,37 @@ body.modal-open {
     padding: 13px 8px;
   }
 
-  .product-grid {
+  .product-grid,
+  #productGrid {
     grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 10px;
   }
 
-  .product-card img {
-    height: 115px;
+  .product-card img,
+  .product-image,
+  #productGrid .product-card .product-image {
+    height: 125px;
+  }
+
+  .product-card-content,
+  .product-info,
+  #productGrid .product-card .product-info {
+    padding: 11px;
+  }
+
+  .product-card h3,
+  .product-info h3 {
+    font-size: 14px;
+  }
+
+  .product-card p,
+  .product-info p:not(.product-price) {
+    font-size: 12px;
+  }
+
+  .product-price,
+  .product-info .product-price {
+    font-size: 17px;
   }
 
   .products-heading {
@@ -1272,6 +1370,17 @@ body.modal-open {
     padding: 9px;
     font-size: 10px;
     white-space: nowrap;
+  }
+
+  .product-actions,
+  #productGrid .product-actions {
+    gap: 6px;
+  }
+
+  .edit-product-btn,
+  .delete-product-btn {
+    padding: 8px 9px;
+    font-size: 11px;
   }
 
   .modal {
@@ -1305,197 +1414,573 @@ body.modal-open {
   .crop-workspace {
     min-height: 200px;
   }
+
+  .crop-controls {
+    gap: 8px;
+  }
 }
-/* ShopNest - Adjusted Shop Banner */
+/* =========================================
+   SHOPNEST BANNER - BLACK SCREEN FIX
+   Paste at the VERY END of your CSS file
+   ========================================= */
+
+/* Banner container */
+#bannerBg,
+.banner-bg,
 .shop-banner,
-.profile-banner,
-.banner-bg {
-    width: 100%;
-    height: 180px;
-    min-height: 180px;
-    max-height: 180px;
-    border-radius: 14px;
-    overflow: hidden;
-    position: relative;
+.profile-banner {
+    position: relative !important;
+    width: 100% !important;
+    height: 300px !important;
+    min-height: 300px !important;
+    max-height: none !important;
+    overflow: hidden !important;
+    background-color: #f3f5f9 !important;
+    background-image: none;
+    border-radius: 16px !important;
 }
 
-/* Banner image */
-.shop-banner img,
-.profile-banner img,
+/* Show the actual uploaded banner image */
+#bannerBg #shopBanner,
+.banner-bg > #shopBanner,
 #shopBanner {
+    display: block !important;
+    visibility: visible !important;
+    opacity: 1 !important;
+
+    position: absolute !important;
+    inset: 0 !important;
+
+    width: 100% !important;
+    height: 100% !important;
+    max-width: none !important;
+
+    object-fit: cover !important;
+    object-position: center center !important;
+
+    background: transparent !important;
+    border: none !important;
+}
+
+/* If the image is not loaded, don't force a black background */
+#bannerBg:has(#shopBanner[src=""]),
+.banner-bg:has(#shopBanner[src=""]) {
+    background-color: #f3f5f9 !important;
+}
+
+/* Keep the online shop button above the image */
+.online-shop-badge {
+    position: absolute !important;
+    z-index: 5 !important;
+}
+
+/* Keep the profile section below the banner */
+.profile-main {
+    position: relative;
+    z-index: 2;
+}
+
+/* Laptop and tablet */
+@media (max-width: 1200px) {
+    #bannerBg,
+    .banner-bg,
+    .shop-banner,
+    .profile-banner {
+        height: 260px !important;
+        min-height: 260px !important;
+    }
+}
+
+/* Mobile */
+@media (max-width: 760px) {
+    #bannerBg,
+    .banner-bg,
+    .shop-banner,
+    .profile-banner {
+        height: 180px !important;
+        min-height: 180px !important;
+    }
+}
+
+/* FIX: ShopNest cover banner */
+#bannerBg {
+    position: relative;
     width: 100%;
+    height: 320px;
+    min-height: 320px;
+    max-height: none;
+    padding: 0;
+    overflow: hidden;
+    background-color: #f3f5f9;
+    background-image: none;
+    border-radius: 16px;
+}
+
+/* Show the actual banner image */
+#bannerBg #shopBanner {
+    display: block !important;
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    max-width: none;
+    object-fit: cover;
+    object-position: center;
+    border: 0;
+    padding: 0;
+    margin: 0;
+}
+
+/* Hide only when the image is intentionally hidden */
+#bannerBg #shopBanner[hidden] {
+    display: none !important;
+}
+
+#bannerBg .online-shop-badge {
+    position: absolute;
+    top: 18px;
+    right: 20px;
+    z-index: 5;
+}
+
+@media (max-width: 768px) {
+    #bannerBg {
+        height: 200px;
+        min-height: 200px;
+    }
+}
+
+/* ===== FIX SHOP PROFILE BANNER BLACK AREA ===== */
+
+.profile-card {
+    width: 100%;
+    box-sizing: border-box;
+    overflow: hidden;
+    background: #ffffff;
+    border: 1px solid #e2e8f0;
+    border-radius: 18px;
+    box-shadow: 0 8px 24px rgba(15, 23, 42, 0.06);
+}
+
+.banner-bg {
+    position: relative;
+    width: 900%;
+    height: 1000px;
+    min-height: 420px;
+    box-sizing: border-box;
+    overflow: hidden;
+    border-radius: 16px 16px 12px 12px;
+
+}    
+/* Banner image ko poori width mein show karo */
+#shopBanner {
+    display: none !important;
+    width: 500%;
     height: 100%;
     object-fit: cover;
     object-position: center;
 }
 
-/* Responsive banner */
-@media (max-width: 768px) {
-    .shop-banner,
-    .profile-banner,
-    .banner-bg {
-        height: 140px;
-        min-height: 140px;
-        max-height: 140px;
-    }
+/* Online shop badge */
+.online-shop-badge {
+    position: absolute;
+    top: 98px;
+    right: 20px;
+    z-index: 5;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 10px 15px;
+    color: #ffffff;
+    background: rgba(20, 20, 20, 0.55);
+    border: 1px solid rgba(255, 255, 255, 0.35);
+    border-radius: 30px;
+    font-size: 12px;
+    font-weight: 700;
+    backdrop-filter: blur(8px);
 }
 
-/* =========================================
-   SHOPNEST - PRODUCT CARD REDESIGN
-   ========================================= */
-
-#productGrid {
-    display: grid;
-    grid-template-columns: repeat(
-        auto-fill,
-        minmax(220px, 1fr)
-    );
-    gap: 22px;
-    align-items: start;
-    width: 100%;
-    margin-top: 20px;
+/* Profile details */
+.profile-main {
+    position: relative;
+    display: flex;
+    align-items: center;
+    gap: 25px;
+    min-height: 225px;
+    padding: 18px 24px 24px;
+    box-sizing: border-box;
+    /* background: #ffffff; */
 }
 
-#productGrid .product-card {
-    min-width: 0;
-    overflow: hidden;
+.shop-avatar-wrap {
+    position: relative;
+    z-index: 2s;
+    flex: 0 0 130px;
+    width: 120px;
+    height: 120px;
+    margin-top: -10px;
+    padding: 6px;
+    box-sizing: border-box;
     background: #ffffff;
-    border: 1px solid #e8eaf0;
-    border-radius: 14px;
-    box-shadow: 0 3px 12px rgba(20, 35, 70, 0.05);
-    transition:
-        transform 0.2s ease,
-        box-shadow 0.2s ease;
+    border: 4px solid #ff821c;
+    border-radius: 50%;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.12);
 }
 
-#productGrid .product-card:hover {
-    transform: translateY(-4px);
-    box-shadow: 0 9px 24px rgba(20, 35, 70, 0.10);
-}
-
-/* Product image */
-#productGrid .product-card .product-image {
+.shop-avatar {
     display: block;
     width: 100%;
-    height: 220px;
-    object-fit: contain;
-    object-position: center;
-    background: #f7f8fb;
-    padding: 8px;
-    box-sizing: border-box;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 50%;
+    background: #eaf1ff;
 }
 
-/* Product information */
-#productGrid .product-card .product-info {
-    padding: 14px;
+.profile-identity {
+    flex: 1;
+    min-width: 0;
+    color: #10213a;
 }
 
-/* Product title */
-#productGrid .product-card .product-info h3 {
+.profile-identity h1 {
     margin: 0 0 8px;
-    color: #172033;
-    font-size: 16px;
-    font-weight: 700;
-    line-height: 1.4;
+    color: #10213a;
+    font-size: 24px;
+    font-weight: 800;
     overflow-wrap: anywhere;
 }
 
-/* Product description */
-#productGrid .product-card .product-info p:not(.product-price) {
-    margin: 0 0 12px;
-    color: #737b8c;
-    font-size: 13px;
-    line-height: 1.6;
-
-    display: -webkit-box;
-    -webkit-box-orient: vertical;
-    -webkit-line-clamp: 3;
-    line-clamp: 3;
-    overflow: hidden;
+.profile-username {
+    margin: 0 0 16px;
+    color: #2864ed;
+    font-size: 14px;
 }
 
-/* Product price */
-#productGrid .product-card .product-info .product-price {
-    margin: 0;
-    padding-top: 10px;
-    border-top: 1px solid #f0f1f5;
-    color: #176b43;
+.profile-stats {
+    display: flex;
+    align-items: flex-start;
+    gap: 28px;
+}
+
+.profile-stats > div {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+.profile-stats strong {
+    color: #10213a;
     font-size: 19px;
     font-weight: 800;
 }
 
-/* Tablet */
-@media (max-width: 768px) {
-    #productGrid {
-        grid-template-columns: repeat(2, minmax(0, 1fr));
-        gap: 14px;
-    }
-
-    #productGrid .product-card .product-image {
-        height: 180px;
-    }
-
-    #productGrid .product-card .product-info {
-        padding: 11px;
-    }
+.profile-stats span {
+    color: #64748b;
+    font-size: 12px;
 }
 
-/* Mobile */
-@media (max-width: 420px) {
-    #productGrid {
-        gap: 10px;
-    }
-
-    #productGrid .product-card .product-image {
-        height: 145px;
-    }
-
-    #productGrid .product-card .product-info h3 {
-        font-size: 14px;
-    }
-
-    #productGrid .product-card .product-info p:not(.product-price) {
-        font-size: 12px;
-    }
-
-    #productGrid .product-card .product-info .product-price {
-        font-size: 17px;
-    }
-}
-
-/* =========================================
-   SHOPNEST PRODUCT DELETE BUTTON
-   ========================================= */
-
-#productGrid .product-actions {
+.profile-actions {
     display: flex;
+    align-items: center;
     justify-content: flex-end;
-    margin-top: 14px;
-    padding-top: 12px;
-    border-top: 1px solid #edf0f5;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-left: auto;
 }
 
-#productGrid .delete-product-btn {
+.btn {
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    gap: 6px;
-    padding: 9px 14px;
-    border: 1px solid #fecaca;
-    border-radius: 8px;
-    background: #fff1f2;
-    color: #dc2626;
+    gap: 8px;
+    min-height: 40px;
+    padding: 10px 16px;
+    box-sizing: border-box;
+    border-radius: 11px;
+    font-family: inherit;
     font-size: 13px;
-    font-weight: 600;
+    font-weight: 700;
     cursor: pointer;
-    transition: background 0.2s ease;
+    transition: 0.2s ease;
 }
 
-#productGrid .delete-product-btn:hover {
-    background: #ffe4e6;
+.btn-primary {
+    color: #ffffff;
+    background: #2864ed;
+    border: 1px solid #2864ed;
+    box-shadow: 0 3px 8px rgba(40, 100, 237, 0.18);
 }
 
-#productGrid .delete-product-btn:disabled {
-    opacity: 0.6;
-    cursor: not-allowed;
+.btn-primary:hover {
+    background: #1d4ed8;
 }
+
+.btn-outline {
+    color: #24344d;
+    background: #ffffff;
+    border: 1px solid #d5deeb;
+}
+
+.btn-outline:hover {
+    background: #f8fafc;
+}
+
+/* Responsive layout */
+@media (max-width: 768px) {
+    .banner-bg {
+        height: 220px;
+        min-height: 180px;
+    }
+
+    .profile-main {
+        align-items: flex-start;
+        flex-wrap: wrap;
+        gap: 14px;
+        padding: 16px;
+    }
+
+    .shop-avatar-wrap {
+        flex-basis: 100px;
+        width: 100px;
+        height: 100px;
+        margin-top: -48px;
+    }
+
+    .profile-identity {
+        flex: 1 1 calc(100% - 120px);
+    }
+
+    .profile-identity h1 {
+        font-size: 20px;
+    }
+
+    .profile-actions {
+        width: 100%;
+        justify-content: flex-start;
+        margin-left: 0;
+    }
+
+    .profile-stats {
+        gap: 22px;
+    }
+}
+
+@media (max-width: 480px) {
+    .banner-bg {
+        height: 170px;
+        min-height: 150px;
+    }
+
+    .online-shop-badge {
+        top: 10px;
+        right: 10px;
+        padding: 8px 10px;
+        font-size: 10px;
+    }
+
+    .profile-main {
+        padding: 12px;
+    }
+
+    .profile-actions .btn {
+        flex: 1;
+        padding: 9px;
+        font-size: 12px;
+    }
+}
+/* FIX: Shop cover banner black area */
+#bannerBg {
+    position: relative !important;
+    width: 100% !important;
+    height: 300px !important;
+    min-height: 300px !important;
+    overflow: hidden !important;
+    background-color: #f1f5f9 !important;
+    background-repeat: no-repeat !important;
+    background-position: center center !important;
+    background-size: cover !important;
+    border-radius: 18px !important;
+}
+
+/* Banner image */
+#shopBanner {
+    display: none !important;
+}
+
+/* Keep online shop badge visible */
+.online-shop-badge {
+    position: absolute !important;
+    top: 18px !important;
+    right: 20px !important;
+    z-index: 5 !important;
+}
+
+#bannerBg {
+    width: 100%;
+    min-height: 220px;
+    background-color: #f1f5f9;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    overflow: hidden;
+    border-radius: 12px;
+}
+
+
+/* ===== SHOPNEST CROP FIX ===== */
+
+#cropViewport {
+    position: relative !important;
+    overflow: hidden !important;
+    padding: 0 !important;
+    box-sizing: border-box !important;
+    background: #f1f5f9 !important;
+    touch-action: none !important;
+    isolation: isolate;
+}
+
+#cropViewport #cropImage {
+    position: absolute !important;
+    display: block !important;
+    max-width: none !important;
+    max-height: none !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    border: 0 !important;
+    object-fit: fill !important;
+    transform: none !important;
+    pointer-events: none !important;
+    user-select: none !important;
+}
+
+#cropViewport.crop-circle {
+    aspect-ratio: 1 / 1;
+    border-radius: 50% !important;
+}
+
+#cropViewport.crop-banner {
+    aspect-ratio: 16 / 5;
+    width: 100%;
+    border-radius: 12px !important;
+}
+
+.crop-workspace {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    overflow: hidden;
+}
+
+#cropZoom {
+    cursor: pointer;
+}
+
+#applyCropBtn:disabled {
+    opacity: 0.65;
+    cursor: wait;
+}
+/* ===== SHOPNEST BANNER DISPLAY FIX ===== */
+
+.profile-card {
+    overflow: hidden;
+}
+
+.banner-bg {
+    position: relative;
+    width: 100%;
+    height: clamp(160px, 24vw, 280px);
+    overflow: hidden;
+    background-color: #eaf1ff;
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center center;
+}
+
+/* The banner is rendered as a background, not as an img. */
+.banner-bg > img#shopBanner {
+    display: none !important;
+}
+
+#cropViewport {
+    position: relative;
+    overflow: hidden;
+    box-sizing: border-box;
+    padding: 0;
+    touch-action: none;
+    background-color: #f1f5f9;
+}
+
+#cropViewport > #cropImage {
+    position: absolute;
+    display: block;
+    max-width: none !important;
+    max-height: none !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    border: 0 !important;
+    transform: none !important;
+    object-fit: fill;
+    pointer-events: none;
+    user-select: none;
+}
+
+#cropViewport.crop-banner {
+    width: 100%;
+    aspect-ratio: 16 / 5;
+    height: auto;
+    border-radius: 10px;
+}
+
+#cropViewport.crop-circle {
+    width: min(100%, 320px);
+    aspect-ratio: 1 / 1;
+    height: auto;
+    border-radius: 50%;
+    margin-inline: auto;
+}
+
+
+
+
+
+/* ShopNest banner - increased height */
+.banner-bg {
+    height: 320px;
+    min-height: 320px;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    overflow: hidden;
+}
+
+/* Mobile responsive height */
+@media (max-width: 600px) {
+    .banner-bg {
+        height: 220px;
+        min-height: 220px;
+    }
+}
+
+
+/* Reduce banner white space */
+.banner-bg {
+    height: 100px;
+    min-height: 160px;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    overflow: hidden;
+}
+
+@media (max-width: 600px) {
+    .banner-bg {
+        height: 190px;
+        min-height: 190px;
+    }
+}
+
+.profile-main {
+  height : 10px;
+}
+

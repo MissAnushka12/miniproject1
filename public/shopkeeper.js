@@ -1,7 +1,11 @@
+
 /* =====================================================
    SHOPNEST - SHOPKEEPER DASHBOARD
    File: shopkeeper.js
+   Fixed: Banner crop, drag, zoom, preview and save
    ===================================================== */
+
+"use strict";
 
 const API = "/api";
 const USER_KEY = "shopnestUser";
@@ -14,6 +18,10 @@ let products = [];
 
 let pendingLogoFile = null;
 let pendingBannerFile = null;
+
+let pendingLogoPreviewUrl = null;
+let pendingBannerPreviewUrl = null;
+let cropObjectUrl = null;
 
 let cropType = "logo";
 let cropSourceImage = null;
@@ -37,15 +45,17 @@ try {
     currentUser = {};
 }
 
-const shopId =
-    currentUser._id ||
-    currentUser.id ||
-    currentUser.shopkeeperId ||
-    currentUser.shopkeeper?._id ||
-    currentUser.shopkeeper?.id;
-
 function getShopId() {
-    return shopId;
+    return (
+        currentUser._id ||
+        currentUser.id ||
+        currentUser.shopkeeperId ||
+        currentUser.shopkeeper?._id ||
+        currentUser.shopkeeper?.id ||
+        shopProfile._id ||
+        shopProfile.id ||
+        null
+    );
 }
 
 /* =====================================================
@@ -129,14 +139,14 @@ function showMessage(message, type = "success") {
 function setText(id, value) {
     const element = $(id);
 
-    if (element) {
-        element.textContent =
-            value === undefined ||
-            value === null ||
-            value === ""
-                ? "Not added"
-                : String(value);
-    }
+    if (!element) return;
+
+    element.textContent =
+        value === undefined ||
+        value === null ||
+        value === ""
+            ? "Not added"
+            : String(value);
 }
 
 function setValue(id, value) {
@@ -145,15 +155,6 @@ function setValue(id, value) {
     if (element) {
         element.value = value ?? "";
     }
-}
-
-function setImage(id, url) {
-    const element = $(id);
-
-    if (!element || !url) return;
-
-    element.src = fileUrl(url);
-    element.style.display = "block";
 }
 
 function fileUrl(path) {
@@ -170,6 +171,15 @@ function fileUrl(path) {
     return `/${path}`;
 }
 
+function setImage(id, url) {
+    const element = $(id);
+
+    if (!element || !url) return;
+
+    element.src = fileUrl(url);
+    element.style.display = "block";
+}
+
 function getProfileValue(...keys) {
     for (const key of keys) {
         if (
@@ -183,12 +193,8 @@ function getProfileValue(...keys) {
     return "";
 }
 
-function getModal(id) {
-    return $(id);
-}
-
 function openModal(id) {
-    const modal = getModal(id);
+    const modal = $(id);
 
     if (!modal) return;
 
@@ -200,7 +206,7 @@ function openModal(id) {
 }
 
 function closeModal(id) {
-    const modal = getModal(id);
+    const modal = $(id);
 
     if (!modal) return;
 
@@ -208,11 +214,7 @@ function closeModal(id) {
     modal.classList.remove("active");
     modal.setAttribute("aria-hidden", "true");
 
-    const anyModalOpen = document.querySelector(
-        ".modal.open, .modal.active"
-    );
-
-    if (!anyModalOpen) {
+    if (!document.querySelector(".modal.open, .modal.active")) {
         document.body.classList.remove("modal-open");
     }
 }
@@ -251,6 +253,9 @@ async function loadProfile() {
 function renderProfile(shop) {
     if (!shop) return;
 
+    // Use the latest profile object.
+    shopProfile = { ...shopProfile, ...shop };
+
     const shopName = getProfileValue("shopName", "name");
     const username = getProfileValue("username");
     const ownerName = getProfileValue("ownerName");
@@ -263,14 +268,9 @@ function renderProfile(shop) {
     const phone = getProfileValue("phone");
     const whatsapp = getProfileValue("whatsapp");
 
-    // Profile header
     setText("shopName", shopName || "Your Shop");
-    setText(
-        "username",
-        username ? `@${username}` : "@username"
-    );
+    setText("username", username ? `@${username}` : "@username");
 
-    // Shop details
     setText("ownerName", ownerName);
     setText("category", category);
     setText("shopAddress", address);
@@ -278,24 +278,21 @@ function renderProfile(shop) {
     setText("phone", phone);
     setText("whatsapp", whatsapp);
 
-    // Profile detail username
     setText(
         "detailUsername",
         username ? `@${username}` : "@username"
     );
 
-    // Profile statistics
     setText("postCount", shop.postCount ?? products.length);
     setText("followerCount", shop.followerCount ?? 0);
     setText("followingCount", shop.followingCount ?? 0);
 
-    // Dashboard statistics
     setText("productCount", shop.productCount ?? products.length);
     setText("orderCount", shop.orderCount ?? 0);
     setText("salesCount", shop.salesCount ?? 0);
     setText("viewCount", shop.viewCount ?? 0);
 
-    // Shop logo
+    // Logo
     const logo = getProfileValue(
         "shopPicture",
         "shopLogo",
@@ -306,7 +303,8 @@ function renderProfile(shop) {
         setImage("shopLogo", logo);
     }
 
-    // Shop banner
+    // FIX: Render the banner only as a background.
+    // Do not display the hidden #shopBanner image on the dashboard.
     const banner = getProfileValue(
         "shopBanner",
         "banner",
@@ -314,21 +312,30 @@ function renderProfile(shop) {
         "coverImage"
     );
 
-    if (banner) {
-        setImage("shopBanner", banner);
+    const bannerBackground = $("bannerBg");
+    const bannerImage = $("shopBanner");
 
-        const bannerBackground = $("bannerBg");
+    if (banner) {
+        const bannerURL = fileUrl(banner);
+
+        if (bannerImage) {
+            bannerImage.src = bannerURL;
+            bannerImage.hidden = true;
+            bannerImage.style.display = "none";
+        }
 
         if (bannerBackground) {
             bannerBackground.style.backgroundImage =
-                `url("${fileUrl(banner)}")`;
+                `url("${bannerURL}")`;
 
             bannerBackground.style.backgroundSize = "cover";
             bannerBackground.style.backgroundPosition = "center";
+            bannerBackground.style.backgroundRepeat = "no-repeat";
         }
+    } else if (bannerBackground) {
+        bannerBackground.style.backgroundImage = "none";
     }
 
-    // Fill edit profile form
     setValue("editShopName", shopName);
     setValue("editOwnerName", ownerName);
     setValue("editUsername", username);
@@ -352,20 +359,9 @@ function closeEditProfile() {
     closeModal("editProfileModal");
 }
 
-$("editProfileBtn")?.addEventListener(
-    "click",
-    openEditProfile
-);
-
-$("closeEditProfile")?.addEventListener(
-    "click",
-    closeEditProfile
-);
-
-$("cancelEditProfile")?.addEventListener(
-    "click",
-    closeEditProfile
-);
+$("editProfileBtn")?.addEventListener("click", openEditProfile);
+$("closeEditProfile")?.addEventListener("click", closeEditProfile);
+$("cancelEditProfile")?.addEventListener("click", closeEditProfile);
 
 $("editProfileModal")?.addEventListener("click", (event) => {
     if (event.target === $("editProfileModal")) {
@@ -415,15 +411,8 @@ function setCropMode(type) {
         );
     }
 
-    $("cropLogoTab")?.classList.toggle(
-        "active",
-        type === "logo"
-    );
-
-    $("cropBannerTab")?.classList.toggle(
-        "active",
-        type === "banner"
-    );
+    $("cropLogoTab")?.classList.toggle("active", type === "logo");
+    $("cropBannerTab")?.classList.toggle("active", type === "banner");
 
     const zoomInput = $("cropZoom");
 
@@ -446,13 +435,13 @@ function updateCropImage() {
     const viewport = getCropViewport();
 
     if (!image || !viewport || !cropSourceImage) return;
-
     if (!image.naturalWidth || !image.naturalHeight) return;
 
     const { width, height } = getCropDimensions();
 
-    if (!width || !height) return;
+    if (width <= 0 || height <= 0) return;
 
+    // Cover the full crop viewport without empty space.
     cropBaseScale = Math.max(
         width / image.naturalWidth,
         height / image.naturalHeight
@@ -463,26 +452,23 @@ function updateCropImage() {
     const renderedWidth = image.naturalWidth * scale;
     const renderedHeight = image.naturalHeight * scale;
 
-    // Keep the image covering the complete crop area.
+    // Image offsets are negative when the image is moved left/up.
     const minX = width - renderedWidth;
     const minY = height - renderedHeight;
 
-    cropOffsetX = Math.min(
-        0,
-        Math.max(minX, cropOffsetX)
-    );
-
-    cropOffsetY = Math.min(
-        0,
-        Math.max(minY, cropOffsetY)
-    );
+    cropOffsetX = Math.min(0, Math.max(minX, cropOffsetX));
+    cropOffsetY = Math.min(0, Math.max(minY, cropOffsetY));
 
     Object.assign(image.style, {
         position: "absolute",
+        display: "block",
         width: `${renderedWidth}px`,
         height: `${renderedHeight}px`,
         maxWidth: "none",
         maxHeight: "none",
+        margin: "0",
+        padding: "0",
+        border: "0",
         left: `${cropOffsetX}px`,
         top: `${cropOffsetY}px`,
         transform: "none",
@@ -496,10 +482,7 @@ function startCrop(file, type) {
     if (!file) return;
 
     if (!file.type.startsWith("image/")) {
-        showMessage(
-            "Please image file select karo.",
-            "error"
-        );
+        showMessage("Please image file select karo.", "error");
         return;
     }
 
@@ -513,8 +496,6 @@ function startCrop(file, type) {
         return;
     }
 
-    cropType = type;
-
     const image = getCropImage();
 
     if (!image) {
@@ -525,7 +506,18 @@ function startCrop(file, type) {
         return;
     }
 
+    // Revoke the previous crop source URL, if any.
+    if (cropObjectUrl) {
+        URL.revokeObjectURL(cropObjectUrl);
+        cropObjectUrl = null;
+    }
+
+    cropType = type;
+    cropSourceImage = null;
+    cropPointerStart = null;
+
     const objectUrl = URL.createObjectURL(file);
+    cropObjectUrl = objectUrl;
 
     image.onload = () => {
         cropSourceImage = image;
@@ -534,9 +526,8 @@ function startCrop(file, type) {
         cropOffsetX = 0;
         cropOffsetY = 0;
 
+        // Open first so the crop viewport has measurable dimensions.
         setCropMode(type);
-
-        // Wait for the modal to become visible before measuring it.
         openModal("cropModal");
 
         requestAnimationFrame(() => {
@@ -547,10 +538,13 @@ function startCrop(file, type) {
     image.onerror = () => {
         URL.revokeObjectURL(objectUrl);
 
-        showMessage(
-            "Image load nahi ho payi.",
-            "error"
-        );
+        if (cropObjectUrl === objectUrl) {
+            cropObjectUrl = null;
+        }
+
+        cropSourceImage = null;
+
+        showMessage("Image load nahi ho payi.", "error");
     };
 
     image.src = objectUrl;
@@ -562,6 +556,9 @@ $("editLogo")?.addEventListener("change", (event) => {
     if (file) {
         startCrop(file, "logo");
     }
+
+    // Allow selecting the same file again.
+    event.target.value = "";
 });
 
 $("editBanner")?.addEventListener("change", (event) => {
@@ -570,6 +567,8 @@ $("editBanner")?.addEventListener("change", (event) => {
     if (file) {
         startCrop(file, "banner");
     }
+
+    event.target.value = "";
 });
 
 $("cropLogoTab")?.addEventListener("click", () => {
@@ -585,12 +584,20 @@ $("cropZoom")?.addEventListener("input", (event) => {
     updateCropImage();
 });
 
-/* Drag image to reposition it inside the crop viewport. */
+/* =====================================================
+   5.1 DRAG IMAGE
+   ===================================================== */
 
 const cropViewport = getCropViewport();
 
 cropViewport?.addEventListener("pointerdown", (event) => {
     if (!cropSourceImage) return;
+
+    if (event.button !== undefined && event.button !== 0) {
+        return;
+    }
+
+    event.preventDefault();
 
     cropPointerStart = {
         pointerId: event.pointerId,
@@ -600,11 +607,22 @@ cropViewport?.addEventListener("pointerdown", (event) => {
         offsetY: cropOffsetY
     };
 
-    cropViewport.setPointerCapture?.(event.pointerId);
+    try {
+        cropViewport.setPointerCapture(event.pointerId);
+    } catch (error) {
+        // Pointer capture may be unavailable in some browsers.
+    }
 });
 
 cropViewport?.addEventListener("pointermove", (event) => {
     if (!cropPointerStart) return;
+
+    if (
+        cropPointerStart.pointerId !== undefined &&
+        event.pointerId !== cropPointerStart.pointerId
+    ) {
+        return;
+    }
 
     cropOffsetX =
         cropPointerStart.offsetX +
@@ -623,12 +641,11 @@ function stopCropDrag() {
 
 cropViewport?.addEventListener("pointerup", stopCropDrag);
 cropViewport?.addEventListener("pointercancel", stopCropDrag);
-cropViewport?.addEventListener(
-    "lostpointercapture",
-    stopCropDrag
-);
+cropViewport?.addEventListener("lostpointercapture", stopCropDrag);
 
-/* Create a cropped image file from the visible crop area. */
+/* =====================================================
+   5.2 CREATE CROPPED FILE
+   ===================================================== */
 
 function createCroppedFile() {
     return new Promise((resolve, reject) => {
@@ -636,26 +653,38 @@ function createCroppedFile() {
         const viewport = getCropViewport();
 
         if (!image || !viewport || !cropSourceImage) {
-            reject(
-                new Error("Crop image available nahi hai.")
-            );
+            reject(new Error("Crop image available nahi hai."));
+            return;
+        }
+
+        if (!image.naturalWidth || !image.naturalHeight) {
+            reject(new Error("Image abhi load nahi hui."));
             return;
         }
 
         const { width, height } = getCropDimensions();
 
-        if (!width || !height) {
-            reject(
-                new Error("Crop area ka size nahi mila.")
-            );
+        if (width <= 0 || height <= 0) {
+            reject(new Error("Crop area ka size nahi mila."));
             return;
         }
 
         const canvas = document.createElement("canvas");
 
-        // High-resolution output
-        const outputWidth = cropType === "logo" ? 600 : 1200;
-        const outputHeight = cropType === "logo" ? 600 : 500;
+        let outputWidth;
+        let outputHeight;
+
+        if (cropType === "logo") {
+            outputWidth = 600;
+            outputHeight = 600;
+        } else {
+            // Keep output ratio exactly the same as the crop viewport.
+            outputWidth = 1600;
+            outputHeight = Math.max(
+                1,
+                Math.round(outputWidth * height / width)
+            );
+        }
 
         canvas.width = outputWidth;
         canvas.height = outputHeight;
@@ -667,27 +696,47 @@ function createCroppedFile() {
             return;
         }
 
+        // Paint a background first so no transparent/empty area appears.
+        context.fillStyle = "#ffffff";
+        context.fillRect(0, 0, outputWidth, outputHeight);
+
+        const scaleX = outputWidth / width;
+        const scaleY = outputHeight / height;
+
+        const imageScale = cropBaseScale * cropZoomValue;
+
+        // IMPORTANT:
+        // cropOffsetX and cropOffsetY are already negative when dragged.
+        // Do NOT negate them; that caused the crop to shift incorrectly.
+        const drawX = cropOffsetX * scaleX;
+        const drawY = cropOffsetY * scaleY;
+
+        const drawWidth =
+            image.naturalWidth * imageScale * scaleX;
+
+        const drawHeight =
+            image.naturalHeight * imageScale * scaleY;
+
+        context.save();
+
+        context.imageSmoothingEnabled = true;
+        context.imageSmoothingQuality = "high";
+
         context.drawImage(
             image,
-            -cropOffsetX * (outputWidth / width),
-            -cropOffsetY * (outputHeight / height),
-            image.naturalWidth *
-                cropBaseScale *
-                cropZoomValue *
-                (outputWidth / width),
-            image.naturalHeight *
-                cropBaseScale *
-                cropZoomValue *
-                (outputHeight / height)
+            drawX,
+            drawY,
+            drawWidth,
+            drawHeight
         );
+
+        context.restore();
 
         const mimeType = "image/jpeg";
 
         canvas.toBlob((blob) => {
             if (!blob) {
-                reject(
-                    new Error("Cropped image create nahi hui.")
-                );
+                reject(new Error("Cropped image create nahi hui."));
                 return;
             }
 
@@ -706,88 +755,116 @@ function createCroppedFile() {
     });
 }
 
+/* =====================================================
+   5.3 PREVIEW CROPPED IMAGE
+   ===================================================== */
+
+function revokePreviewUrl(type) {
+    if (type === "logo" && pendingLogoPreviewUrl) {
+        URL.revokeObjectURL(pendingLogoPreviewUrl);
+        pendingLogoPreviewUrl = null;
+    }
+
+    if (type === "banner" && pendingBannerPreviewUrl) {
+        URL.revokeObjectURL(pendingBannerPreviewUrl);
+        pendingBannerPreviewUrl = null;
+    }
+}
+
 function previewCroppedFile(file, type) {
     const url = URL.createObjectURL(file);
 
     if (type === "logo") {
+        revokePreviewUrl("logo");
+
         pendingLogoFile = file;
+        pendingLogoPreviewUrl = url;
+
         setImage("shopLogo", url);
-    } else {
-        pendingBannerFile = file;
-        setImage("shopBanner", url);
+        return;
+    }
 
-        const bannerBackground = $("bannerBg");
+    revokePreviewUrl("banner");
 
-        if (bannerBackground) {
-            bannerBackground.style.backgroundImage =
-                `url("${url}")`;
+    pendingBannerFile = file;
+    pendingBannerPreviewUrl = url;
 
-            bannerBackground.style.backgroundSize = "cover";
-            bannerBackground.style.backgroundPosition = "center";
-        }
+    const bannerBackground = $("bannerBg");
+    const bannerImage = $("shopBanner");
+
+    // Use the background element for the dashboard banner.
+    if (bannerBackground) {
+        bannerBackground.style.backgroundImage = `url("${url}")`;
+        bannerBackground.style.backgroundSize = "cover";
+        bannerBackground.style.backgroundPosition = "center";
+        bannerBackground.style.backgroundRepeat = "no-repeat";
+    }
+
+    // Keep the separate banner image hidden.
+    if (bannerImage) {
+        bannerImage.src = url;
+        bannerImage.hidden = true;
+        bannerImage.style.display = "none";
     }
 }
 
-$("applyCropBtn")?.addEventListener(
-    "click",
-    async () => {
-        const button = $("applyCropBtn");
+$("applyCropBtn")?.addEventListener("click", async () => {
+    const button = $("applyCropBtn");
+    const originalText = button?.textContent || "Apply Crop";
 
-        try {
-            if (button) {
-                button.disabled = true;
-                button.textContent = "Applying...";
-            }
+    try {
+        if (button) {
+            button.disabled = true;
+            button.textContent = "Applying...";
+        }
 
-            const croppedFile = await createCroppedFile();
+        const croppedFile = await createCroppedFile();
 
-            previewCroppedFile(croppedFile, cropType);
+        previewCroppedFile(croppedFile, cropType);
 
-            closeModal("cropModal");
+        closeModal("cropModal");
 
-            showMessage(
-                cropType === "logo"
-                    ? "Logo preview ready. Save Changes par click karo."
-                    : "Banner preview ready. Save Changes par click karo."
-            );
-        } catch (error) {
-            console.error("Crop error:", error);
+        showMessage(
+            cropType === "logo"
+                ? "Logo preview ready. Save Changes par click karo."
+                : "Banner preview ready. Save Changes par click karo."
+        );
+    } catch (error) {
+        console.error("Crop error:", error);
 
-            showMessage(
-                error.message || "Crop failed.",
-                "error"
-            );
-        } finally {
-            if (button) {
-                button.disabled = false;
-                button.textContent = "Apply Crop";
-            }
+        showMessage(
+            error.message || "Crop failed.",
+            "error"
+        );
+    } finally {
+        if (button) {
+            button.disabled = false;
+            button.textContent = originalText;
         }
     }
-);
+});
 
 function closeCropEditor() {
     closeModal("cropModal");
 
     const image = getCropImage();
 
-    if (image?.src?.startsWith("blob:")) {
-        URL.revokeObjectURL(image.src);
+    if (image) {
+        image.onload = null;
+        image.onerror = null;
+    }
+
+    if (cropObjectUrl) {
+        URL.revokeObjectURL(cropObjectUrl);
+        cropObjectUrl = null;
     }
 
     cropSourceImage = null;
     cropPointerStart = null;
 }
 
-$("cancelCropBtn")?.addEventListener(
-    "click",
-    closeCropEditor
-);
-
-$("closeCropModal")?.addEventListener(
-    "click",
-    closeCropEditor
-);
+$("cancelCropBtn")?.addEventListener("click", closeCropEditor);
+$("closeCropModal")?.addEventListener("click", closeCropEditor);
 
 $("cropModal")?.addEventListener("click", (event) => {
     if (event.target === $("cropModal")) {
@@ -799,19 +876,13 @@ $("cropModal")?.addEventListener("click", (event) => {
    6. SAVE PROFILE + LOGO + BANNER
    ===================================================== */
 
-$("editProfileForm")?.addEventListener(
-    "submit",
-    saveProfile
-);
+$("editProfileForm")?.addEventListener("submit", saveProfile);
 
 async function saveProfile(event) {
     event.preventDefault();
 
     if (!getShopId()) {
-        showMessage(
-            "Shop ID nahi mila. Please login karo.",
-            "error"
-        );
+        showMessage("Shop ID nahi mila. Please login karo.", "error");
         return;
     }
 
@@ -860,7 +931,7 @@ async function saveProfile(event) {
         $("editWhatsapp")?.value.trim() || ""
     );
 
-    // These names must match the backend Multer fields.
+    // Must match backend Multer field names.
     if (pendingLogoFile) {
         formData.append("shopPicture", pendingLogoFile);
     }
@@ -895,7 +966,6 @@ async function saveProfile(event) {
             };
         }
 
-        // Update local session with returned profile fields.
         try {
             const storedUser = JSON.parse(
                 localStorage.getItem(USER_KEY) || "{}"
@@ -910,6 +980,8 @@ async function saveProfile(event) {
                 USER_KEY,
                 JSON.stringify(updatedUser)
             );
+
+            currentUser = updatedUser;
         } catch (error) {
             console.warn(
                 "Could not update local session:",
@@ -920,9 +992,14 @@ async function saveProfile(event) {
         pendingLogoFile = null;
         pendingBannerFile = null;
 
+        // Keep preview URLs alive until the server's saved images
+        // have loaded and replaced the temporary preview.
         closeEditProfile();
 
         await loadProfile();
+
+        revokePreviewUrl("logo");
+        revokePreviewUrl("banner");
 
         showMessage("Shop profile successfully updated!");
     } catch (error) {
@@ -930,7 +1007,7 @@ async function saveProfile(event) {
 
         showMessage(
             error.message ||
-                "Profile save nahi hua. Backend route check karo.",
+            "Profile save nahi hua. Backend route check karo.",
             "error"
         );
     } finally {
@@ -946,10 +1023,7 @@ async function saveProfile(event) {
    ===================================================== */
 
 function openAddProductModal() {
-    const form = $("addProductForm");
-
-    form?.reset();
-
+    $("addProductForm")?.reset();
     openModal("addProductModal");
 }
 
@@ -957,30 +1031,12 @@ function closeAddProductModal() {
     closeModal("addProductModal");
 }
 
-$("addProductBtn")?.addEventListener(
-    "click",
-    openAddProductModal
-);
+$("addProductBtn")?.addEventListener("click", openAddProductModal);
+$("addProductBtn2")?.addEventListener("click", openAddProductModal);
+$("emptyAddProductBtn")?.addEventListener("click", openAddProductModal);
 
-$("addProductBtn2")?.addEventListener(
-    "click",
-    openAddProductModal
-);
-
-$("emptyAddProductBtn")?.addEventListener(
-    "click",
-    openAddProductModal
-);
-
-$("closeAddProduct")?.addEventListener(
-    "click",
-    closeAddProductModal
-);
-
-$("cancelAddProduct")?.addEventListener(
-    "click",
-    closeAddProductModal
-);
+$("closeAddProduct")?.addEventListener("click", closeAddProductModal);
+$("cancelAddProduct")?.addEventListener("click", closeAddProductModal);
 
 $("addProductModal")?.addEventListener("click", (event) => {
     if (event.target === $("addProductModal")) {
@@ -1026,18 +1082,14 @@ function renderProducts(items) {
     const emptyState = $("emptyProducts");
 
     if (!grid) {
-        console.warn(
-            "productGrid element HTML mein nahi mila."
-        );
+        console.warn("productGrid element HTML mein nahi mila.");
         return;
     }
 
     grid.replaceChildren();
 
     if (!items || items.length === 0) {
-        if (emptyState) {
-            emptyState.style.display = "block";
-        }
+        if (emptyState) emptyState.style.display = "block";
 
         grid.style.display = "none";
 
@@ -1047,9 +1099,7 @@ function renderProducts(items) {
         return;
     }
 
-    if (emptyState) {
-        emptyState.style.display = "none";
-    }
+    if (emptyState) emptyState.style.display = "none";
 
     grid.style.display = "grid";
 
@@ -1059,7 +1109,6 @@ function renderProducts(items) {
 
         const image = document.createElement("img");
         image.className = "product-image";
-
         image.alt =
             product.title ||
             product.productName ||
@@ -1073,13 +1122,18 @@ function renderProducts(items) {
 
         if (imagePath) {
             image.src = fileUrl(imagePath);
+        } else {
+            image.alt = "No product image available";
         }
+
+        image.onerror = () => {
+            image.alt = "Product image could not be loaded";
+        };
 
         const content = document.createElement("div");
         content.className = "product-info";
 
         const title = document.createElement("h3");
-
         title.textContent =
             product.title ||
             product.productName ||
@@ -1087,7 +1141,6 @@ function renderProducts(items) {
             "Untitled Product";
 
         const description = document.createElement("p");
-
         description.textContent =
             product.description ||
             "No description available";
@@ -1098,14 +1151,37 @@ function renderProducts(items) {
         const amount = Number(product.price);
 
         price.textContent =
+            product.price !== undefined &&
+            product.price !== null &&
+            product.price !== "" &&
             Number.isFinite(amount)
                 ? `₹${amount.toLocaleString("en-IN")}`
                 : "Price not added";
 
-        content.append(title, description, price);
+        const actions = document.createElement("div");
+        actions.className = "product-actions";
 
+        const deleteButton = document.createElement("button");
+        deleteButton.type = "button";
+        deleteButton.className = "delete-product-btn";
+        deleteButton.textContent = "🗑 Delete";
+
+        deleteButton.setAttribute(
+            "aria-label",
+            `Delete ${title.textContent}`
+        );
+
+        deleteButton.addEventListener("click", () => {
+            deleteProduct(
+                product._id || product.id,
+                deleteButton
+            );
+        });
+
+        actions.appendChild(deleteButton);
+
+        content.append(title, description, price, actions);
         card.append(image, content);
-
         grid.appendChild(card);
     });
 
@@ -1114,13 +1190,67 @@ function renderProducts(items) {
 }
 
 /* =====================================================
-   9. SUBMIT NEW PRODUCT
+   8.1 DELETE PRODUCT
    ===================================================== */
 
-$("addProductForm")?.addEventListener(
-    "submit",
-    addProduct
-);
+async function deleteProduct(productId, button) {
+    if (!getShopId()) {
+        showMessage("Please login again.", "error");
+        return;
+    }
+
+    if (!productId) {
+        showMessage(
+            "Product ID nahi mila. Product delete nahi hua.",
+            "error"
+        );
+        return;
+    }
+
+    const confirmed = window.confirm(
+        "Kya tum sach mein is product ko delete karna chahti ho?\n\nYe action undo nahi hoga."
+    );
+
+    if (!confirmed) return;
+
+    const originalText = button?.textContent || "🗑 Delete";
+
+    try {
+        if (button) {
+            button.disabled = true;
+            button.textContent = "Deleting...";
+        }
+
+        const result = await request(
+            `${API}/shopkeeper/${encodeURIComponent(getShopId())}/products/${encodeURIComponent(productId)}`,
+            { method: "DELETE" }
+        );
+
+        await loadProducts();
+
+        showMessage(
+            result?.message || "Product deleted successfully!"
+        );
+    } catch (error) {
+        console.error("Delete product error:", error);
+
+        showMessage(
+            error.message || "Product delete nahi hua.",
+            "error"
+        );
+
+        if (button) {
+            button.disabled = false;
+            button.textContent = originalText;
+        }
+    }
+}
+
+/* =====================================================
+   9. ADD NEW PRODUCT
+   ===================================================== */
+
+$("addProductForm")?.addEventListener("submit", addProduct);
 
 async function addProduct(event) {
     event.preventDefault();
@@ -1133,80 +1263,34 @@ async function addProduct(event) {
     const button = $("saveProductBtn");
     const originalText = button?.textContent || "Save Product";
 
-    const form = $("addProductForm");
-    const imageInput = $("productImage");
-    const imageFile = imageInput?.files?.[0];
-
-    // Image is required.
-    if (!imageFile) {
-        showMessage(
-            "Please select a product image.",
-            "error"
-        );
-
-        imageInput?.focus();
-        return;
-    }
-
-    // Validate file type.
-    const allowedTypes = [
-        "image/jpeg",
-        "image/png",
-        "image/webp",
-        "image/gif"
-    ];
-
-    if (!allowedTypes.includes(imageFile.type)) {
-        showMessage(
-            "Please select a JPG, PNG, WEBP or GIF image.",
-            "error"
-        );
-        return;
-    }
-
-    // Maximum upload size: 5 MB.
-    if (imageFile.size > 5 * 1024 * 1024) {
-        showMessage(
-            "Image size must be 5 MB or smaller.",
-            "error"
-        );
-        return;
-    }
-
-    const title = $("productTitle")?.value.trim() || "";
-    const description =
-        $("productDescription")?.value.trim() || "";
-    const price = $("productPrice")?.value || "";
-    const category = $("productCategory")?.value || "";
-
-    if (!title || !description || price === "" || !category) {
-        showMessage(
-            "Please fill all product details.",
-            "error"
-        );
-        return;
-    }
-
-    const numericPrice = Number(price);
-
-    if (!Number.isFinite(numericPrice) || numericPrice < 0) {
-        showMessage(
-            "Please enter a valid product price.",
-            "error"
-        );
-        return;
-    }
-
     const formData = new FormData();
 
-    formData.append("title", title);
-    formData.append("description", description);
-    formData.append("price", price);
-    formData.append("category", category);
+    formData.append(
+        "title",
+        $("productTitle")?.value.trim() || ""
+    );
 
-    // IMPORTANT:
-    // Must match upload.single("image") in server.js.
-    formData.append("image", imageFile);
+    formData.append(
+        "description",
+        $("productDescription")?.value.trim() || ""
+    );
+
+    formData.append(
+        "price",
+        $("productPrice")?.value || ""
+    );
+
+    formData.append(
+        "category",
+        $("productCategory")?.value || ""
+    );
+
+    const imageFile = $("productImage")?.files?.[0];
+
+    if (imageFile) {
+        // Backend product upload field is "image".
+        formData.append("image", imageFile);
+    }
 
     try {
         if (button) {
@@ -1222,7 +1306,7 @@ async function addProduct(event) {
             }
         );
 
-        form?.reset();
+        $("addProductForm")?.reset();
 
         closeAddProductModal();
 
@@ -1236,7 +1320,7 @@ async function addProduct(event) {
 
         showMessage(
             error.message ||
-                "Product add nahi hua. Backend route check karo.",
+            "Product add nahi hua. Backend route check karo.",
             "error"
         );
     } finally {

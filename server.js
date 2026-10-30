@@ -728,7 +728,139 @@ app.post(
         }
     }
 );
+// -----------------------------------------------------
+// UPDATE PRODUCT
+// PATCH /api/shopkeeper/:id/products/:productId
+// -----------------------------------------------------
 
+app.patch(
+    "/api/shopkeeper/:id/products/:productId",
+    upload.any(),
+    async (req, res) => {
+        try {
+            const { id, productId } = req.params;
+
+            if (!validId(id) || !validId(productId)) {
+                return res.status(400).json({
+                    success: false,
+                    message: "Invalid shopkeeper or product ID."
+                });
+            }
+
+            // Confirm product belongs to this shopkeeper
+            const product = await Product.findOne({
+                _id: productId,
+                shopkeeperId: id
+            });
+
+            if (!product) {
+                return res.status(404).json({
+                    success: false,
+                    message: "Product not found."
+                });
+            }
+
+            const body = req.body;
+
+            // Accept different frontend field names
+            const name =
+                body.name ?? body.title ?? body.productName;
+
+            const price =
+                body.price ?? body.productPrice;
+
+            if (name !== undefined) {
+                if (!String(name).trim()) {
+                    return res.status(400).json({
+                        success: false,
+                        message: "Product name cannot be empty."
+                    });
+                }
+
+                product.name = String(name).trim();
+            }
+
+            if (price !== undefined && price !== "") {
+                const numericPrice = Number(price);
+
+                if (
+                    !Number.isFinite(numericPrice) ||
+                    numericPrice < 0
+                ) {
+                    return res.status(400).json({
+                        success: false,
+                        message: "Enter a valid product price."
+                    });
+                }
+
+                product.price = numericPrice;
+            }
+
+            if (body.description !== undefined) {
+                product.description = body.description;
+            }
+
+            if (body.category !== undefined) {
+                product.category = body.category;
+            }
+
+            if (body.stock !== undefined && body.stock !== "") {
+                const numericStock = Number(body.stock);
+
+                if (
+                    !Number.isInteger(numericStock) ||
+                    numericStock < 0
+                ) {
+                    return res.status(400).json({
+                        success: false,
+                        message: "Stock must be a non-negative whole number."
+                    });
+                }
+
+                product.stock = numericStock;
+            }
+
+            // Replace product image only if a new image is uploaded
+            const imageFiles = req.files || [];
+            const imagePaths = imageFiles.map(uploadedPath);
+
+            if (imagePaths.length > 0) {
+                const oldImages = [
+                    product.image,
+                    ...(product.images || [])
+                ];
+
+                product.image = imagePaths[0];
+                product.images = imagePaths;
+
+                await product.save();
+
+                // Remove old images after successful save
+                for (const oldImage of new Set(oldImages)) {
+                    if (oldImage && !imagePaths.includes(oldImage)) {
+                        removeUploadedFile(oldImage);
+                    }
+                }
+            } else {
+                await product.save();
+            }
+
+            return res.json({
+                success: true,
+                message: "Product updated successfully.",
+                product
+            });
+
+        } catch (error) {
+            console.error("Update product error:", error);
+
+            return res.status(500).json({
+                success: false,
+                message: "Could not update product."
+            });
+        }
+    }
+);
 // -----------------------------------------------------
 // 14. DELETE PRODUCT
 // DELETE /api/shopkeeper/:id/products/:productId
